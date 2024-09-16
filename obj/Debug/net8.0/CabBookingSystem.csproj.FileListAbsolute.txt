@@ -149,3 +149,4 @@ C:\Users\danis\CabBookingSystem\obj\Debug\net8.0\refint\CabBookingSystem.dll
 C:\Users\danis\CabBookingSystem\obj\Debug\net8.0\CabBookingSystem.pdb
 C:\Users\danis\CabBookingSystem\obj\Debug\net8.0\CabBookingSystem.genruntimeconfig.cache
 C:\Users\danis\CabBookingSystem\obj\Debug\net8.0\ref\CabBookingSystem.dll
+C:\Users\danis\CabBookingSystem\obj\Debug\net8.0\CabBookingSystem.sourcelink.json
