@@ -1,0 +1,134 @@
+﻿@model CabBookingSystem.Models.User
+
+<div class="profile-container">
+    <!-- User Profile Information -->
+    <div class="profile-header">
+        <h2>User Profile</h2>
+        <div class="profile-info">
+            <p><strong>Name:</strong> @Model.Name</p>
+            <p><strong>Email:</strong> @Model.Email</p>
+            <p><strong>Phone Number:</strong> @Model.PhoneNumber</p>
+        </div>
+    </div>
+
+    <!-- Past Bookings Section -->
+    <div class="booking-history">
+        <h3>Past Bookings</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Booking ID</th>
+                    <th>Pickup Location</th>
+                    <th>Drop Location</th>
+                    <th>Price</th>
+                    <th>Booking Time</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var booking in Model.Bookings)
+                {
+                <tr>
+                    <td>@booking.BookingId</td>
+                    <td>@booking.PickupLocation</td>
+                    <td>@booking.DropLocation</td>
+                    <td>₹ @booking.Price</td>
+                    <td>@booking.BookingTime.ToString("g")</td>
+                    <td class="status @booking.Status.ToLower()">@booking.Status</td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Styles for the User Profile Page -->
+<style>
+    body {
+        font-family: 'Poppins', sans-serif;
+        background-color: #f9f9f9;
+        color: #333;
+        margin: 0;
+        padding: 20px;
+    }
+
+    .profile-container {
+        max-width: 900px;
+        margin: 0 auto;
+        background-color: #fff;
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    }
+
+    .profile-header {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    .profile-header h2 {
+        font-size: 28px;
+        color: #007bff;
+        margin-bottom: 10px;
+    }
+
+    .profile-info p {
+        font-size: 18px;
+        margin: 8px 0;
+        color: #555;
+    }
+
+    .booking-history h3 {
+        font-size: 24px;
+        margin-bottom: 20px;
+        color: #333;
+        border-bottom: 2px solid #e9ecef;
+        padding-bottom: 10px;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 30px;
+        font-size: 16px;
+    }
+
+    table th, table td {
+        text-align: left;
+        padding: 12px 15px;
+        border-bottom: 1px solid #e9ecef;
+    }
+
+    table th {
+        background-color: #f1f3f5;
+        color: #333;
+    }
+
+    table tbody tr:hover {
+        background-color: #f9f9f9;
+    }
+
+    .status {
+        padding: 5px 10px;
+        border-radius: 5px;
+        text-align: center;
+    }
+
+    .status.completed {
+        background-color: #28a745;
+        color: white;
+    }
+
+    .status.pending {
+        background-color: #ffc107;
+        color: white;
+    }
+
+    .status.cancelled {
+        background-color: #dc3545;
+        color: white;
+    }
+
+    /* Responsive Styles */
+    
+</style>

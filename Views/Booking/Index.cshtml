@@ -1,0 +1,27 @@
+﻿@model IEnumerable<CabBookingSystem.Models.Booking>
+
+<h1>Bookings List</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Booking ID</th>
+            <th>Pickup Location</th>
+            <th>Drop Location</th>
+            <th>Status</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var booking in Model)
+        {
+            <tr>
+                <td>@booking.BookingId</td>
+                <td>@booking.PickupLocation</td>
+                <td>@booking.DropLocation</td>
+                <td>@booking.Status</td>
+                <td><a href="/Booking/Details/@booking.BookingId">Details</a></td>
+            </tr>
+        }
+    </tbody>
+</table>

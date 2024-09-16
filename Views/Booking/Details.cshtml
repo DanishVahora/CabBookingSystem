@@ -1,0 +1,145 @@
+﻿@model CabBookingSystem.Models.Cab
+
+<!-- Main Container for Booking Confirmation -->
+<div class="confirmation-container">
+    <!-- Cab Information Section -->
+    <div class="cab-info-card">
+        <div class="cab-image">
+            <!-- Placeholder image for the cab type based on the model -->
+            <img src="~/images/@Model.CabType.ToLower().Replace(' ', '_')_icon.jpeg" alt="@Model.CabType" />
+        </div>
+        <div class="cab-details">
+            <h2>Confirm Your Booking</h2>
+            <p><strong>Cab Number:</strong> @Model.CabNumber</p>
+            <p><strong>Driver:</strong> @Model.DriverName</p>
+            <p><strong>Type:</strong> @Model.CabType</p>
+        </div>
+    </div>
+
+    <!-- Booking Form Section -->
+    <form action="/Booking/ConfirmBooking" method="post" class="booking-form">
+        <input type="hidden" name="CabId" value="@Model.CabId" />
+        <input type="hidden" name="PickupLocation" value="@ViewBag.PickupLocation" />
+        <input type="hidden" name="DropLocation" value="@ViewBag.DropLocation" />
+        <input type="hidden" name="Distance" value="@ViewBag.Distance" />
+        <input type="hidden" name="Price" value="@ViewBag.Price" />
+        <input type="hidden" name="NumberOfPass" value="@ViewBag.NumberOfPass" />
+        <input type="hidden" name="BookingTime" value="@ViewBag.BookingTime" />
+        <input type="hidden" name="TotalPersons" value="@ViewBag.TotalPersons" />
+
+        <div class="location-info">
+            <p><strong>Pickup Location:</strong> @ViewBag.PickupLocation</p>
+            <p><strong>Drop Location:</strong> @ViewBag.DropLocation</p>
+            <p><strong>Distance:</strong> @ViewBag.Distance km</p>
+            <p><strong>Booking Time:</strong> @ViewBag.BookingTime</p>
+        </div>
+
+        <details class="invoice">
+            <summary><strong> Invoice </strong></summary>
+
+            <p><strong>Total Persons:</strong> @ViewBag.TotalPersons</p>
+            <div class="final-amount">
+                <h4>Advance booking fee: <span>₹ 50</span></h4>
+                <h4>Taxes: <span>₹ 25</span></h4>
+                <h4>Ride Charge: <span>₹ 30 x @ViewBag.Distance </span></h4>
+                <hr />
+                <h3><strong>Final Amount to Pay: ₹ @ViewBag.Price</strong></h3>
+            </div>
+        </details>
+
+        <button type="submit" class="btn btn-primary">Proceed</button>
+    </form>
+</div>
+
+<!-- Styles for the Confirmation Page -->
+<style>
+    body {
+        font-family: 'Poppins', sans-serif;
+        background-color: #f7f8fa;
+        color: #333;
+        margin: 0;
+        padding: 40px 0;
+    }
+
+    .confirmation-container {
+        max-width: 600px;
+        margin: 0 auto;
+        background-color: #ffffff;
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    }
+
+    .cab-info-card {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+
+    .cab-image {
+        width: 120px;
+        margin-right: 20px;
+    }
+
+    .cab-image img {
+        width: 100%;
+        border-radius: 10px;
+    }
+
+    .cab-details h2 {
+        font-size: 24px;
+        margin-bottom: 10px;
+        color: #007bff;
+    }
+
+    .cab-details p {
+        font-size: 16px;
+        margin: 5px 0;
+        color: #555;
+    }
+
+    .location-info p {
+        font-size: 16px;
+        color: #666;
+    }
+
+    .invoice summary {
+        font-size: 18px;
+        cursor: pointer;
+        color: #007bff;
+        margin-top: 20px;
+    }
+
+    .invoice .final-amount {
+        margin-top: 10px;
+    }
+
+    .invoice h4 {
+        display: flex;
+        justify-content: space-between;
+        font-size: 16px;
+        margin-bottom: 5px;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 30px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        box-shadow: 0 3px 10px rgba(0, 123, 255, 0.3);
+        width: 100%;
+        margin-top: 20px;
+        text-align: center;
+    }
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+    }
+
+    /* For mobile responsiveness */
+   
+</style>
