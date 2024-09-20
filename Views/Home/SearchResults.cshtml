@@ -1,190 +1,210 @@
 ﻿@model IEnumerable<CabBookingSystem.Models.Cab>
 
-<!-- Main Container for the Page -->
-<div class="search-results-container">
-    <!-- Left Section (Cab List) -->
-    <div class="cab-list">
-        <div class="justify-content-center">
-            <center><h1 style="color:#003d7a; border:dotted">Available Cabs</h1></center>
-            <div class="location-info">
-                <center>
-                    <h3>Pickup Location : </h3>
-                    <p>@ViewBag.PickupLocation</p>
-                    <br />
-                    <h3>Drop Location : </h3>
-                    <p>@ViewBag.DropLocation</p>
-                    <br />
-                    <h3> Distance : </h3>
-                    <p>@ViewBag.Distance</p>
-                    <br />
-                    <h3> BookingTime : </h3>
-                    <p>@ViewBag.BookingTime</p>
-                        
-                </center>
-            </div>
-        </div>
+    <!-- Main Container for the Page -->
+    <div class="search-results-container">
+        <!-- Left Section (Cab List) -->
+        <div class="cab-list">
+            <div class="justify-content-center">
+                <center><h1 style="color:#003d7a; border:dotted">Available Cabs</h1></center>
+                <div class="location-info">
+                    <center>
+                        <h3>Pickup Location : </h3>
+                        <p>@ViewBag.PickupLocation</p>
+                        <br />
+                        <h3>Drop Location : </h3>
+                        <p>@ViewBag.DropLocation</p>
+                        <br />
+                        <h3> Distance : </h3>
+                        <p>@ViewBag.Distance</p>
+                        <br />
+                        <h3> BookingTime : </h3>
+                        <p>@ViewBag.BookingTime</p>
 
-        <!-- Loop through each cab and display it as a card -->
-        @foreach (var cab in Model)
+                    </center>
+                </div>
+            </div>
+
+            <!-- Loop through each cab and display it as a card -->
+            @foreach (var cab in Model)
         {
             <div class="cab-card">
                 <div class="cab-image">
                     <!-- Placeholder image for the cab type -->
                     <img src="~/images/@cab.CabType.ToLower().Replace(' ', '_')_icon.jpeg" alt="@cab.CabType" />
                 </div>
+
+
                 <div class="cab-details">
                     <h4>@cab.CabType</h4>
                     <p>Cab Number: @cab.CabNumber</p>
                     <p>Driver: @cab.DriverName</p>
                     <p class="price">₹30 x Distance</p>
-                    <a href="/Booking/Details/@cab.CabId?pickupLocation=@ViewBag.PickupLocation&dropLocation=@ViewBag.DropLocation&BookingTime=@ViewBag.BookingTime&Distance=@ViewBag.Distance&TotalPersons=@ViewBag.TotalPersons" class="btn btn-primary">Book Now</a>
+
+
+                    <!---->
+                    <form action="/Booking/Details" method="post" class="booking-form">
+                        <input type="hidden" name="id" value="@cab.CabId" />
+                        <input type="hidden" name="pickupLocation" value="@ViewBag.PickupLocation" />
+                        <input type="hidden" name="dropLocation" value="@ViewBag.DropLocation" />
+                        <input type="hidden" name="BookingTime" value="@ViewBag.BookingTime" />
+                        <input type="hidden" name="Distance" value="@ViewBag.Distance" />
+                        <input type="hidden" name="TotalPersons" value="@ViewBag.TotalPersons" />
+
+                        
+                        <button type="submit" class="btn btn-primary">Book Now</button>
+                    </form>
+                    <!---->
+
+
                 </div>
+
+
             </div>
         }
+        </div>
+
+        <!-- Right Section (Fixed Image Banner) -->
+        <div class="banner-section">
+            <img src="~/images/background.jpeg" alt="Ride out of town">
+            <p>Book and depart in an hour</p>
+        </div>
     </div>
 
-    <!-- Right Section (Fixed Image Banner) -->
-    <div class="banner-section">
-        <img src="~/images/background.jpeg" alt="Ride out of town">
-        <p>Book and depart in an hour</p>
-    </div>
-</div>
-
-<!-- Styles for the page -->
-<style>
-    /* Background and Font */
-    body {
-        font-family: 'Poppins', sans-serif; /* Modern font for a cleaner look */
-        background: linear-gradient(to right, #f8f9fa, #e9ecef);
-        color: #333;
-    }
-
-    h2 {
-        font-size: 32px;
-        color: #333;
-        margin-bottom: 20px;
-    }
-
-    /* Main Container */
-    .search-results-container {
-        display: flex;
-        justify-content: space-between;
-        padding: 20px;
-        margin-top: 60px;
-    }
-
-    .cab-list {
-        width: 65%;
-    }
-
-    .location-info {
-        margin-bottom: 30px;
-        background-color: #f8f9fa;
-        padding: 10px;
-        border-radius: 10px;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    }
-
-        .location-info p {
-            font-size: 18px;
-            color: #555;
-        }
-
-    /* Cab Cards */
-    .cab-card {
-        display: flex;
-        border: 1px solid #ddd;
-        border-radius: 8px;
-        margin-bottom: 15px;
-        padding: 20px;
-        background-color: #ffffff;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-        transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-    }
-
-        .cab-card:hover {
-            transform: scale(1.02);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
-        }
-
-    .cab-image {
-        width: 120px;
-        margin-right: 20px;
-    }
-
-        .cab-image img {
-            width: 100%;
-            height: auto;
-            border-radius: 10px;
-        }
-
-    .cab-details {
-        flex-grow: 1;
-    }
-
-        .cab-details h4 {
-            margin: 0;
-            font-size: 22px;
+    <!-- Styles for the page -->
+    <style>
+        /* Background and Font */
+        body {
+            font-family: 'Poppins', sans-serif; /* Modern font for a cleaner look */
+            background: linear-gradient(to right, #f8f9fa, #e9ecef);
             color: #333;
-            font-weight: bold;
         }
 
-        .cab-details p {
-            margin: 5px 0;
-            color: #777;
+        h2 {
+            font-size: 32px;
+            color: #333;
+            margin-bottom: 20px;
         }
 
-        .cab-details .price {
-            font-weight: bold;
-            color: #4caf50;
-            margin-top: 10px;
+        /* Main Container */
+        .search-results-container {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+            margin-top: 60px;
         }
 
-    /* Button Styles */
-    .btn-primary {
-        display: inline-block;
-        margin-top: 10px;
-        background: linear-gradient(135deg, #007bff, #0056b3);
-        color: white;
-        padding: 10px 15px;
-        text-decoration: none;
-        border-radius: 30px;
-        box-shadow: 0 3px 8px rgba(0, 123, 255, 0.4);
-        transition: background 0.3s ease, box-shadow 0.3s ease;
-    }
-
-        .btn-primary:hover {
-            background: linear-gradient(135deg, #0056b3, #003d7a);
-            box-shadow: 0 6px 12px rgba(0, 123, 255, 0.6);
+        .cab-list {
+            width: 65%;
         }
 
-    /* Banner Section */
-    .banner-section {
-        width: 30%;
-        position: fixed;
-        right: 0;
-        top: 80px;
-        text-align: center;
-        background: rgba(255, 255, 255, 0.8);
-        padding: 20px;
-        border-radius: 10px;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    }
+        .location-info {
+            margin-bottom: 30px;
+            background-color: #f8f9fa;
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
 
-        .banner-section img {
-            max-width: 100%;
-            height: auto;
+            .location-info p {
+                font-size: 18px;
+                color: #555;
+            }
+
+        /* Cab Cards */
+        .cab-card {
+            display: flex;
+            border: 1px solid #ddd;
             border-radius: 8px;
             margin-bottom: 15px;
+            padding: 20px;
+            background-color: #ffffff;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
         }
 
-        .banner-section p {
-            font-size: 20px;
-            color: #555;
+            .cab-card:hover {
+                transform: scale(1.02);
+                box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+            }
+
+        .cab-image {
+            width: 120px;
+            margin-right: 20px;
         }
 
-    /* Scroll Smooth */
-    html {
-        scroll-behavior: smooth;
-    }
-</style>
+            .cab-image img {
+                width: 100%;
+                height: auto;
+                border-radius: 10px;
+            }
+
+        .cab-details {
+            flex-grow: 1;
+        }
+
+            .cab-details h4 {
+                margin: 0;
+                font-size: 22px;
+                color: #333;
+                font-weight: bold;
+            }
+
+            .cab-details p {
+                margin: 5px 0;
+                color: #777;
+            }
+
+            .cab-details .price {
+                font-weight: bold;
+                color: #4caf50;
+                margin-top: 10px;
+            }
+
+        /* Button Styles */
+        .btn-primary {
+            display: inline-block;
+            margin-top: 10px;
+            background: linear-gradient(135deg, #007bff, #0056b3);
+            color: white;
+            padding: 10px 15px;
+            text-decoration: none;
+            border-radius: 30px;
+            box-shadow: 0 3px 8px rgba(0, 123, 255, 0.4);
+            transition: background 0.3s ease, box-shadow 0.3s ease;
+        }
+
+            .btn-primary:hover {
+                background: linear-gradient(135deg, #0056b3, #003d7a);
+                box-shadow: 0 6px 12px rgba(0, 123, 255, 0.6);
+            }
+
+        /* Banner Section */
+        .banner-section {
+            width: 30%;
+            position: fixed;
+            right: 0;
+            top: 80px;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+            .banner-section img {
+                max-width: 100%;
+                height: auto;
+                border-radius: 8px;
+                margin-bottom: 15px;
+            }
+
+            .banner-section p {
+                font-size: 20px;
+                color: #555;
+            }
+
+        /* Scroll Smooth */
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>

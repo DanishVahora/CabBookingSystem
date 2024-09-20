@@ -14,6 +14,6 @@ namespace CabBookingSystem.Models
         public DbSet<Cab> Cabs { get; set; }
         public DbSet<Booking> Bookings { get; set; }
 
-       
+
     }
 }

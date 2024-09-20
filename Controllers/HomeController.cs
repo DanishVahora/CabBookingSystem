@@ -22,7 +22,6 @@ namespace CabBookingSystem.Controllers
 
         public async Task<IActionResult> Search(string PickupLocation, string DropLocation, DateTime BookingTime, double Distance, int TotalPersons)
         {
-            Console.WriteLine($"Distance: {Distance}");
 
             if (HttpContext.Session.GetInt32("UserId") == null)
             {
@@ -31,10 +30,6 @@ namespace CabBookingSystem.Controllers
             }
 
 
-            // Create new booking entry
-            
-
-            // For now, fetch dummy cab data
             var availableCabs = _context.Cabs.ToList();
 
             // You can modify this to filter the cabs based on user input, for now return all

@@ -13,6 +13,8 @@ namespace CabBookingSystem.Controllers
         {
             _context = context;
         }
+
+        [HttpPost]
         public IActionResult Details(int id, string pickupLocation, string dropLocation, string BookingTime, double Distance, int TotalPersons)
         {
             if (HttpContext.Session.GetInt32("UserId") == null)

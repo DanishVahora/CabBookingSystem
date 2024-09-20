@@ -32,6 +32,7 @@ public class AccountController : Controller
             {
                 // Login successful, store user session
                 HttpContext.Session.SetInt32("UserId", user.UserId);
+                TempData["LoginMessage"] = "Login Successful!";
                 return RedirectToAction("Index", "Home"); // Redirect to Home/Booking page
             }
         }
@@ -66,6 +67,8 @@ public class AccountController : Controller
 
         // Store users session after signup
         HttpContext.Session.SetInt32("UserId", user.UserId);
+        TempData["LoginMessage"] = "Account Created Successfully!";
+
         return RedirectToAction("Index", "Home");
     }
 
