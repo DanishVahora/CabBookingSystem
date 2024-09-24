@@ -57,6 +57,11 @@ namespace CabBookingSystem.Controllers
 
         public IActionResult Buffer(int bookingId)
         {
+            if (HttpContext.Session.GetInt32("UserId") == null)
+            {
+                TempData["logFirst"] = "Login First";
+                return RedirectToAction("Login", "Account");
+            }
             var booking = _context.Bookings.Find(bookingId);
             if (booking == null)
             {
@@ -105,6 +110,12 @@ namespace CabBookingSystem.Controllers
         [HttpGet]
         public IActionResult Confirmation(int bookingId)
         {
+
+            if (HttpContext.Session.GetInt32("UserId") == null)
+            {
+                TempData["logFirst"] = "Login First";
+                return RedirectToAction("Login", "Account");
+            }
             var booking = _context.Bookings.Find(bookingId);
             if (booking == null)
             {

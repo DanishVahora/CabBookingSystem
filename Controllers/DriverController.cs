@@ -92,6 +92,8 @@ public class DriverController : Controller
 
     public IActionResult Dashboard()
     {
+       
+
         // Retrieve the driver ID from the session
         int? driverId = HttpContext.Session.GetInt32("Id");
 
@@ -158,6 +160,14 @@ public class DriverController : Controller
 
     public IActionResult ShowRoute(int bookingId)
     {
+        int? driverId = HttpContext.Session.GetInt32("Id");
+
+        if (driverId == null)
+        {
+            TempData["LoginMessage"] = "Please log in first.";
+            return RedirectToAction("Login");
+        }
+
         var booking = _context.Bookings.FirstOrDefault(b => b.BookingId == bookingId);
 
         if (booking != null)
@@ -167,15 +177,19 @@ public class DriverController : Controller
                 PickupLocation = booking.PickupLocation,
                 DropLocation = booking.DropLocation,
                 BookingTime = booking.BookingTime,
-                Price = booking.Price
-                // Include other properties as needed
-            };
+                Price = booking.Price,
+                PickupLatitude = booking.PickupLatitude,
+                PickupLongitude = booking.PickupLongitude,
+                DropLatitude = booking.DropLatitude,
+                DropLongitude = booking.DropLongitude,
+        };
 
             return View(viewModel);
         }
 
         return RedirectToAction("Dashboard");
     }
+
 
 
 
