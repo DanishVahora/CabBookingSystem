@@ -64,7 +64,7 @@
 
         <div id="message-container" class="text-center"></div> <!-- For error/success messages -->
 
-        <form action="/Home/Search" method="post">
+        <form action="/Home/Search" method="post" onsubmit="return validateForm()">
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
@@ -77,6 +77,11 @@
                         <input type="text" id="drop" name="DropLocation" class="form-control" placeholder="Click on the map to select drop location" readonly required />
                     </div>
                     <br />
+                    <!-- Hidden fields for pickup and drop lat/lng -->
+                    <input type="hidden" id="pickupLat" name="PickupLat" />
+                    <input type="hidden" id="pickupLng" name="PickupLng" />
+                    <input type="hidden" id="dropLat" name="DropLat" />
+                    <input type="hidden" id="dropLng" name="DropLng" />
                     <!-- Swap Button -->
                     <div class="form-group">
                         <button type="button" class="btn btn-secondary" id="swap-btn" onclick="swapLocations()">Swap Locations</button>
@@ -104,7 +109,7 @@
             </div>
 
             <div class="text-center mt-4">
-                <button type="submit" class="btn btn-primary">Search Cabs</button>
+                <button type="submit" class="btn btn-primary" onclick="checkBro()">Search Cabs</button>
             </div>
         </form>
     </div>
@@ -139,6 +144,30 @@
 </footer>
 
 <script>
+
+
+    function validateForm() {
+        var pickupLat = document.getElementById('pickupLat').value;
+        var pickupLng = document.getElementById('pickupLng').value;
+        var dropLat = document.getElementById('dropLat').value;
+        var dropLng = document.getElementById('dropLng').value;
+
+        if (!pickupLat || !pickupLng || !dropLat || !dropLng) {
+            displayMessage('Please select both pickup and drop locations on the map!', 'danger');
+            return false;  // Prevent form submission
+        }
+        return true;  // Proceed with form submission
+    }
+
+    function checkBro() {
+        // After setting the values in hidden fields, add this
+        console.log("Pickup Lat: ", document.getElementById('pickupLat').value);
+        console.log("Pickup Lng: ", document.getElementById('pickupLng').value);
+        console.log("Drop Lat: ", document.getElementById('dropLat').value);
+        console.log("Drop Lng: ", document.getElementById('dropLng').value);
+
+    }
+
     // Initialize the map over India
     var map = L.map('map').setView([20.5937, 78.9629], 5);
 
@@ -191,6 +220,8 @@
 
                 getAreaName(lat, lng, function (areaName) {
                     document.getElementById('pickup').value = areaName;
+                    document.getElementById('pickupLat').value = lat;
+                    document.getElementById('pickupLng').value = lng;
                 });
 
                 removeMarker(dropMarker);
@@ -209,110 +240,122 @@
         fetch(url)
             .then(response => response.json())
             .then(data => {
-                var address = data.address;
-                if (address && address.country_code !== 'in') {
-                    displayMessage("Selected location is outside India. Booking not allowed.", 'danger');
-                    resetMapToDefault();
-                    callback(false);
-                } else {
-                    callback(true, data.display_name);
+                var isInIndia = data && data.address && data.address.country === 'India';
+                if (!isInIndia) {
+                    displayMessage('Selected location must be within India!', 'danger');
                 }
+                callback(isInIndia);
             });
     }
 
-    // Reverse geocoding to get area name
+    // Calculate distance between two coordinates
+    function calculateDistance(lat1, lng1, lat2, lng2) {
+        var R = 6371; // Radius of the earth in km
+        var dLat = (lat2 - lat1) * Math.PI / 180;
+        var dLng = (lng2 - lng1) * Math.PI / 180;
+        var a =
+            0.5 - Math.cos(dLat) / 2 +
+            Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+            (1 - Math.cos(dLng)) / 2;
+        return R * 2 * Math.asin(Math.sqrt(a)); // Distance in km
+    }
+
+    // Reverse geocoding to get location name
     function getAreaName(lat, lng, callback) {
         var url = `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${lng}`;
         fetch(url)
             .then(response => response.json())
             .then(data => {
-                callback(data.display_name);
+                if (data && data.display_name) {
+                    callback(data.display_name);
+                } else {
+                    callback('');
+                }
             });
     }
 
-    // Create a route
-    function createRoute(pickupLatLng, dropLatLng) {
-        if (route) map.removeControl(route);
-
-        route = L.Routing.control({
-            waypoints: [
-                L.latLng(pickupLatLng.lat, pickupLatLng.lng),
-                L.latLng(dropLatLng.lat, dropLatLng.lng)
-            ],
-            routeWhileDragging: true
-        }).addTo(map);
-
-        route.on('routesfound', function (e) {
-            var distance = e.routes[0].summary.totalDistance / 1000; // distance in km
-            document.getElementById('distance').value = distance.toFixed(2);
-
-            if (distance > 300) {
-                displayMessage("Distance is more than 300 km. Booking not allowed.", 'danger');
-                resetMapToDefault();
-            }
-        });
-    }
-
-    // Map click event to select pickup and drop locations
+    // Handle map clicks to select pickup or drop locations
     map.on('click', function (e) {
         var lat = e.latlng.lat;
         var lng = e.latlng.lng;
 
-        if (!settingPickup) {
-            // Set Pickup Location
-            removeMarker(pickupMarker);
-            pickupMarker = L.marker([lat, lng]).addTo(map)
-                .bindPopup('Pickup location set here!')
-                .openPopup();
+        validateLocationInIndia(lat, lng, function (isInIndia) {
+            if (!isInIndia) return;
 
-            validateLocationInIndia(lat, lng, function (isValid, areaName) {
-                if (isValid) {
+            if (settingPickup) {
+                removeMarker(pickupMarker);
+                pickupMarker = L.marker([lat, lng]).addTo(map)
+                    .bindPopup('Pickup location set here!')
+                    .openPopup();
+
+                getAreaName(lat, lng, function (areaName) {
                     document.getElementById('pickup').value = areaName;
-                    settingPickup = true; // Now allow setting drop location
-                }
-            });
-        } else {
-            // Set Drop Location
-            removeMarker(dropMarker);
-            dropMarker = L.marker([lat, lng]).addTo(map)
-                .bindPopup('Drop location set here!')
-                .openPopup();
+                    document.getElementById('pickupLat').value = lat;
+                    document.getElementById('pickupLng').value = lng;
+                });
+            } else {
+                removeMarker(dropMarker);
+                dropMarker = L.marker([lat, lng]).addTo(map)
+                    .bindPopup('Drop location set here!')
+                    .openPopup();
 
-            validateLocationInIndia(lat, lng, function (isValid, areaName) {
-                if (isValid) {
+                getAreaName(lat, lng, function (areaName) {
                     document.getElementById('drop').value = areaName;
+                    document.getElementById('dropLat').value = lat;
+                    document.getElementById('dropLng').value = lng;
+                });
 
-                    var pickupLatLng = pickupMarker.getLatLng();
-                    var dropLatLng = dropMarker.getLatLng();
-                    createRoute(pickupLatLng, dropLatLng);
+                var pickupLat = document.getElementById('pickupLat').value;
+                var pickupLng = document.getElementById('pickupLng').value;
+                if (pickupLat && pickupLng) {
+                    var distance = calculateDistance(pickupLat, pickupLng, lat, lng);
+                    if (distance <= 300) {
+                        document.getElementById('distance').value = distance.toFixed(2);
+
+                        if (route) map.removeControl(route);
+                        route = L.Routing.control({
+                            waypoints: [
+                                L.latLng(pickupLat, pickupLng),
+                                L.latLng(lat, lng)
+                            ]
+                        }).addTo(map);
+                    } else {
+                        displayMessage('Distance between locations exceeds 300 km!', 'danger');
+                    }
                 }
-            });
-        }
+            }
+            settingPickup = !settingPickup;
+        });
     });
 
-    // Function to swap pickup and drop locations
+    // Swap the pickup and drop locations
     function swapLocations() {
-        var pickupInput = document.getElementById('pickup');
-        var dropInput = document.getElementById('drop');
-        var tempValue = pickupInput.value;
-        pickupInput.value = dropInput.value;
-        dropInput.value = tempValue;
+        var pickupLocation = document.getElementById('pickup').value;
+        var dropLocation = document.getElementById('drop').value;
+        document.getElementById('pickup').value = dropLocation;
+        document.getElementById('drop').value = pickupLocation;
 
-        if (pickupMarker && dropMarker) {
-            var pickupLatLng = pickupMarker.getLatLng();
-            var dropLatLng = dropMarker.getLatLng();
+        var pickupLat = document.getElementById('pickupLat').value;
+        var pickupLng = document.getElementById('pickupLng').value;
+        var dropLat = document.getElementById('dropLat').value;
+        var dropLng = document.getElementById('dropLng').value;
+        document.getElementById('pickupLat').value = dropLat;
+        document.getElementById('pickupLng').value = dropLng;
+        document.getElementById('dropLat').value = pickupLat;
+        document.getElementById('dropLng').value = pickupLng;
 
-            // Swap the markers
-            var tempLatLng = pickupLatLng;
-            pickupMarker.setLatLng(dropLatLng).update();
-            dropMarker.setLatLng(tempLatLng).update();
-
-            createRoute(pickupMarker.getLatLng(), dropMarker.getLatLng());
+        // Reset the route after swapping
+        if (route) map.removeControl(route);
+        if (pickupLat && pickupLng && dropLat && dropLng) {
+            route = L.Routing.control({
+                waypoints: [
+                    L.latLng(pickupLat, pickupLng),
+                    L.latLng(dropLat, dropLng)
+                ]
+            }).addTo(map);
         }
     }
 
-    // Reset map when page loads
-    document.addEventListener("DOMContentLoaded", function () {
-        resetMapToDefault();
-    });
+    // Initialize map on page load
+    resetMapToDefault();
 </script>

@@ -1,20 +1,19 @@
-﻿@page
-@model CabBookingSystem.Views.Account.LoginModel
-@{
-}
-
-<!-- Stylish Login Form -->
+﻿
+<!-- Stylish Driver Login Form -->
 <div class="login-container">
-    @if (TempData["logFirst"] != null)
-    {
-        <div class="alert alert-warning">
-            @TempData["logFirst"]
-        </div>
-    }
+    
 
     <div class="login-card">
-        <h2>Login</h2>
-        <form method="post" action="/Account/Login">
+        <h2>Driver Login</h2>
+        <form method="post" action="/Driver/Login">
+            <div class="form-group">
+                <label for="driverName">Driver Name</label>
+                <input type="text" class="form-control" id="driverName" name="driverName" placeholder="Enter your name" required />
+            </div>
+            <div class="form-group">
+                <label for="location">Location</label>
+                <input type="text" class="form-control" id="location" name="location" placeholder="Enter your location" required />
+            </div>
             <div class="form-group">
                 <label for="email">Email</label>
                 <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" required />
@@ -25,19 +24,12 @@
             </div>
 
             <br />
-            <a href="/Driver/Login" style="text-decoration:none">Login as a cab driver ? </a>
+            <a href="#" style="text-decoration:none">Login as a cab driver?</a>
             <br />
             <br />
             <button type="submit" class="btn btn-primary">Login</button>
 
-
-
-            @if (@ViewBag.Message != null)
-            {
-            <div class="alert alert-warning mt-3">
-                @ViewBag.Message
-            </div>
-            }
+            
         </form>
     </div>
 </div>

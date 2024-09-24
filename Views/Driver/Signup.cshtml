@@ -1,20 +1,20 @@
-﻿@page
-@model CabBookingSystem.Views.Account.LoginModel
-@{
-}
+﻿
 
-<!-- Stylish Login Form -->
-<div class="login-container">
-    @if (TempData["logFirst"] != null)
-    {
-        <div class="alert alert-warning">
-            @TempData["logFirst"]
-        </div>
-    }
+<!-- Stylish Driver Signup Form -->
+<div class="signup-container">
+   
 
-    <div class="login-card">
-        <h2>Login</h2>
-        <form method="post" action="/Account/Login">
+    <div class="signup-card">
+        <h2>Driver Signup</h2>
+        <form method="post" action="/Driver/Signup">
+            <div class="form-group">
+                <label for="driverName">Driver Name</label>
+                <input type="text" class="form-control" id="driverName" name="driverName" placeholder="Enter your name" required />
+            </div>
+            <div class="form-group">
+                <label for="location">Location</label>
+                <input type="text" class="form-control" id="location" name="location" placeholder="Enter your location" required />
+            </div>
             <div class="form-group">
                 <label for="email">Email</label>
                 <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" required />
@@ -23,28 +23,23 @@
                 <label for="password">Password</label>
                 <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password" required />
             </div>
-
-            <br />
-            <a href="/Driver/Login" style="text-decoration:none">Login as a cab driver ? </a>
-            <br />
-            <br />
-            <button type="submit" class="btn btn-primary">Login</button>
-
-
-
-            @if (@ViewBag.Message != null)
-            {
-            <div class="alert alert-warning mt-3">
-                @ViewBag.Message
+            <div class="form-group">
+                <label for="confirmPassword">Confirm Password</label>
+                <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" placeholder="Confirm your password" required />
             </div>
-            }
+
+            <button type="submit" class="btn btn-primary">Signup</button>
+
+            
         </form>
+        <br />
+        <a href="/Driver/Login" style="text-decoration:none">Already have an account? Login here</a>
     </div>
 </div>
 
-<!-- Styles for Login Page -->
+<!-- Styles for Signup Page -->
 <style>
-    .login-container {
+    .signup-container {
         display: flex;
         justify-content: center;
         align-items: center;
@@ -52,7 +47,7 @@
         background: #f8f9fa;
     }
 
-    .login-card {
+    .signup-card {
         background-color: #fff;
         padding: 30px;
         border-radius: 12px;

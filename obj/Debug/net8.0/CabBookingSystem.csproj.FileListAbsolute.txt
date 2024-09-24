@@ -150,3 +150,5 @@ C:\Users\danis\CabBookingSystem\obj\Debug\net8.0\CabBookingSystem.pdb
 C:\Users\danis\CabBookingSystem\obj\Debug\net8.0\CabBookingSystem.genruntimeconfig.cache
 C:\Users\danis\CabBookingSystem\obj\Debug\net8.0\ref\CabBookingSystem.dll
 C:\Users\danis\CabBookingSystem\obj\Debug\net8.0\CabBookingSystem.sourcelink.json
+C:\Users\danis\CabBookingSystem\bin\Debug\net8.0\Newtonsoft.Json.dll
+C:\Users\danis\CabBookingSystem\bin\Debug\net8.0\System.Net.WebSockets.WebSocketProtocol.dll

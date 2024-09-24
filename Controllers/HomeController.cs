@@ -20,7 +20,7 @@ namespace CabBookingSystem.Controllers
         }
 
 
-        public async Task<IActionResult> Search(string PickupLocation, string DropLocation, DateTime BookingTime, double Distance, int TotalPersons)
+        public async Task<IActionResult> Search(string PickupLocation, string DropLocation, DateTime BookingTime, double Distance, int TotalPersons, double pickupLat, double pickupLng, double dropLat, double dropLng)
         {
 
             if (HttpContext.Session.GetInt32("UserId") == null)
@@ -37,7 +37,11 @@ namespace CabBookingSystem.Controllers
             ViewBag.DropLocation = DropLocation;
             ViewBag.Distance = Distance;
             ViewBag.BookingTime = BookingTime;
-            ViewBag.TotalPersons = TotalPersons;    
+            ViewBag.TotalPersons = TotalPersons;
+            ViewBag.PickupLat = pickupLat;
+            ViewBag.PickupLng = pickupLng;
+            ViewBag.DropLat = dropLat;
+            ViewBag.DropLng = dropLng;
 
 
 

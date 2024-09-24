@@ -1,0 +1,59 @@
+﻿@model CabBookingSystem.Models.ShowRouteViewModel
+
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Route Details</h2>
+    
+    <div class="card mb-4 shadow-sm">
+        <div class="card-header bg-primary text-white">
+            <h5 class="mb-0">Booking Information</h5>
+        </div>
+        <div class="card-body">
+            <p><strong>Pickup Location:</strong> @Model.PickupLocation</p>
+            <p><strong>Drop Location:</strong> @Model.DropLocation</p>
+            <p><strong>Booking Time:</strong> @Model.BookingTime.ToString("f")</p>
+            <p><strong>Price:</strong> ₹@Model.Price</p>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header bg-secondary text-white">
+            <h5 class="mb-0">Route Map</h5>
+        </div>
+        <div class="card-body">
+            <div id="map" style="height: 400px; border-radius: 8px; overflow: hidden;"></div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script>
+        // Initialize map
+        var map = L.map('map').setView([20.5937, 78.9629], 5); // Default view (India)
+
+        // Add tile layer (OpenStreetMap)
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '© OpenStreetMap contributors'
+        }).addTo(map);
+
+        // Define pickup location coordinates (replace with actual values)
+        var pickupLatLng = [/* latitude for pickup */]; // e.g., 28.7041
+        var pickupLng = [/* longitude for pickup */]; // e.g., 77.1025
+
+        // Define cab's current location coordinates (replace with actual values)
+        var cabCurrentLatLng = [/* latitude for cab's current location */]; // e.g., 28.5355
+        var cabCurrentLng = [/* longitude for cab's current location */]; // e.g., 77.3910
+
+        // Add markers for pickup location and cab's current location
+        var pickupMarker = L.marker(pickupLatLng).addTo(map).bindPopup('Pickup Location: @Model.PickupLocation').openPopup();
+        var cabMarker = L.marker(cabCurrentLatLng).addTo(map).bindPopup('Cab Current Location').openPopup();
+
+        // Optional: Draw a route line between the pickup and cab's current location
+        var routeLine = L.polyline([cabCurrentLatLng, pickupLatLng], { color: 'blue', weight: 4, dashArray: '5, 5' }).addTo(map);
+
+        // Fit map bounds to show both markers and the route
+        var bounds = L.latLngBounds([cabCurrentLatLng, pickupLatLng]);
+        map.fitBounds(bounds);
+    </script>
+}

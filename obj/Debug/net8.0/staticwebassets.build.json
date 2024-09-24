@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "YM6+hITDNx2Fd1DmfihmXcnAhEJEhQ9VJIbTirtfiAc=",
+  "Hash": "doHvVkQUSenn/oxI+eubsv7FEJnX5ctA6axpol8QNBU=",
   "Source": "CabBookingSystem",
   "BasePath": "_content/CabBookingSystem",
   "Mode": "Default",
@@ -1383,6 +1383,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\images\\land_cruiser_icon.jpeg"
+    },
+    {
+      "Identity": "C:\\Users\\danis\\CabBookingSystem\\wwwroot\\images\\Loading.gif",
+      "SourceId": "CabBookingSystem",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\danis\\CabBookingSystem\\wwwroot\\",
+      "BasePath": "_content/CabBookingSystem",
+      "RelativePath": "images/Loading.gif",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\Loading.gif"
     },
     {
       "Identity": "C:\\Users\\danis\\CabBookingSystem\\wwwroot\\images\\mercedes_icon.jpeg",

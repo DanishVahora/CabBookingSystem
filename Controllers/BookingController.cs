@@ -6,7 +6,6 @@ namespace CabBookingSystem.Controllers
 {
     public class BookingController : Controller
     {
-
         private readonly ApplicationDbContext _context;
 
         public BookingController(ApplicationDbContext context)
@@ -15,18 +14,15 @@ namespace CabBookingSystem.Controllers
         }
 
         [HttpPost]
-        public IActionResult Details(int id, string pickupLocation, string dropLocation, string BookingTime, double Distance, int TotalPersons)
+        public IActionResult Details(int id, string pickupLocation, string dropLocation, string BookingTime, double Distance, int TotalPersons, double pickupLat, double pickupLng, double dropLat, double dropLng)
         {
             if (HttpContext.Session.GetInt32("UserId") == null)
             {
-                TempData["logFirst"] = "Login First"; // Use TempData to persist message across redirect
+                TempData["logFirst"] = "Login First";
                 return RedirectToAction("Login", "Account");
             }
 
-
-            // Create new booking entry
             var Price = (int)Distance * 30;
-            // For now, fetch dummy cab data
             var cab = _context.Cabs.Find(id);
 
             ViewBag.PickupLocation = pickupLocation;
@@ -35,14 +31,19 @@ namespace CabBookingSystem.Controllers
             ViewBag.Distance = Distance;
             ViewBag.Price = Price;
             ViewBag.TotalPersons = TotalPersons;
+            ViewBag.PickupLat = pickupLat;
+            ViewBag.PickupLng = pickupLng;
+            ViewBag.DropLat = dropLat;
+            ViewBag.DropLng = dropLng;
 
-
-            // Pass the cab information to the view
             return View(cab);
         }
 
         [HttpPost]
-        public IActionResult ConfirmBooking(int cabId, string pickupLocation, string dropLocation, DateTime bookingTime, double distance, int numberOfPass, int price)
+
+
+        [HttpPost]
+        public IActionResult ConfirmBooking(int cabId, string pickupLocation, string dropLocation, DateTime bookingTime, double distance, int numberOfPass, int price, double pickupLat, double pickupLng, double dropLat, double dropLng)
         {
             if (HttpContext.Session.GetInt32("UserId") == null)
             {
@@ -52,7 +53,6 @@ namespace CabBookingSystem.Controllers
 
             int userId = HttpContext.Session.GetInt32("UserId").Value;
 
-            // Create a new booking
             Booking booking = new Booking
             {
                 UserId = userId,
@@ -63,8 +63,11 @@ namespace CabBookingSystem.Controllers
                 Distance = distance,
                 Price = price,
                 NumberOfPass = numberOfPass,
-                Status = "Confirmed"
-                // No OTP assignment here
+                Status = "pending",
+                PickupLatitude = pickupLat,
+                PickupLongitude = pickupLng,
+                DropLatitude = dropLat,
+                DropLongitude = dropLng
             };
 
             _context.Bookings.Add(booking);
@@ -72,7 +75,5 @@ namespace CabBookingSystem.Controllers
 
             return View("BookingConfirmation", booking);
         }
-
-
     }
 }

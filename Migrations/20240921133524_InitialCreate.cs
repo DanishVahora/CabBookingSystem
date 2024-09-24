@@ -6,25 +6,24 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace CabBookingSystem.Migrations
 {
     /// <inheritdoc />
-    public partial class AddedDriver : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Drivers",
+                name: "Cabs",
                 columns: table => new
                 {
-                    DriverId = table.Column<int>(type: "int", nullable: false)
+                    CabId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    CabNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     DriverName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    PasswordHash = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CabNumber = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    CabType = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Drivers", x => x.DriverId);
+                    table.PrimaryKey("PK_Cabs", x => x.CabId);
                 });
 
             migrationBuilder.CreateTable(
@@ -44,24 +43,26 @@ namespace CabBookingSystem.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Cabs",
+                name: "Drivers",
                 columns: table => new
                 {
-                    CabId = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    CabNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    DriverName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CabType = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    DriverId = table.Column<int>(type: "int", nullable: false)
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CabId = table.Column<int>(type: "int", nullable: false),
+                    IsAvailable = table.Column<bool>(type: "bit", nullable: false),
+                    PhoneNumber = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Cabs", x => x.CabId);
+                    table.PrimaryKey("PK_Drivers", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Cabs_Drivers_DriverId",
-                        column: x => x.DriverId,
-                        principalTable: "Drivers",
-                        principalColumn: "DriverId",
+                        name: "FK_Drivers_Cabs_CabId",
+                        column: x => x.CabId,
+                        principalTable: "Cabs",
+                        principalColumn: "CabId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -79,11 +80,17 @@ namespace CabBookingSystem.Migrations
                     Price = table.Column<int>(type: "int", nullable: false),
                     BookingTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Distance = table.Column<double>(type: "float", nullable: false),
-                    Status = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Status = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DriverId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Bookings", x => x.BookingId);
+                    table.ForeignKey(
+                        name: "FK_Bookings_Drivers_DriverId",
+                        column: x => x.DriverId,
+                        principalTable: "Drivers",
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Bookings_Users_UserId",
                         column: x => x.UserId,
@@ -93,14 +100,19 @@ namespace CabBookingSystem.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_Bookings_DriverId",
+                table: "Bookings",
+                column: "DriverId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Bookings_UserId",
                 table: "Bookings",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Cabs_DriverId",
-                table: "Cabs",
-                column: "DriverId");
+                name: "IX_Drivers_CabId",
+                table: "Drivers",
+                column: "CabId");
         }
 
         /// <inheritdoc />
@@ -110,13 +122,13 @@ namespace CabBookingSystem.Migrations
                 name: "Bookings");
 
             migrationBuilder.DropTable(
-                name: "Cabs");
+                name: "Drivers");
 
             migrationBuilder.DropTable(
                 name: "Users");
 
             migrationBuilder.DropTable(
-                name: "Drivers");
+                name: "Cabs");
         }
     }
 }

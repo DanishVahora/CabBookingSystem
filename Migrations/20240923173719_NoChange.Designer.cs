@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CabBookingSystem.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240916053606_AddUserBookingsRelation")]
-    partial class AddUserBookingsRelation
+    [Migration("20240923173719_NoChange")]
+    partial class NoChange
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -42,16 +42,28 @@ namespace CabBookingSystem.Migrations
                     b.Property<double>("Distance")
                         .HasColumnType("float");
 
+                    b.Property<double>("DropLatitude")
+                        .HasColumnType("float");
+
                     b.Property<string>("DropLocation")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<double>("DropLongitude")
+                        .HasColumnType("float");
+
                     b.Property<int>("NumberOfPass")
                         .HasColumnType("int");
+
+                    b.Property<double>("PickupLatitude")
+                        .HasColumnType("float");
 
                     b.Property<string>("PickupLocation")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("PickupLongitude")
+                        .HasColumnType("float");
 
                     b.Property<int>("Price")
                         .HasColumnType("int");
@@ -94,6 +106,46 @@ namespace CabBookingSystem.Migrations
                     b.ToTable("Cabs");
                 });
 
+            modelBuilder.Entity("CabBookingSystem.Models.Driver", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("CabId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsAvailable")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Location")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("PhoneNumber")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CabId");
+
+                    b.ToTable("Drivers");
+                });
+
             modelBuilder.Entity("CabBookingSystem.Models.User", b =>
                 {
                     b.Property<int>("UserId")
@@ -126,12 +178,28 @@ namespace CabBookingSystem.Migrations
             modelBuilder.Entity("CabBookingSystem.Models.Booking", b =>
                 {
                     b.HasOne("CabBookingSystem.Models.User", "User")
-                        .WithMany()
+                        .WithMany("Bookings")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("CabBookingSystem.Models.Driver", b =>
+                {
+                    b.HasOne("CabBookingSystem.Models.Cab", "Cab")
+                        .WithMany()
+                        .HasForeignKey("CabId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Cab");
+                });
+
+            modelBuilder.Entity("CabBookingSystem.Models.User", b =>
+                {
+                    b.Navigation("Bookings");
                 });
 #pragma warning restore 612, 618
         }

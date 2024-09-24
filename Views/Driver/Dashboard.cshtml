@@ -1,0 +1,120 @@
+﻿@model CabBookingSystem.Models.DashboardViewModel
+
+@{
+    ViewData["Title"] = "Driver Dashboard";
+}
+
+<!-- Bootstrap and Leaflet CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+
+<div class="container mt-5">
+    <!-- Welcome Message -->
+    <div class="text-center mb-4">
+        <h1 class="display-5 fw-bold">Welcome, @Model.Driver.Name</h1>
+        <p class="lead">Manage your bookings and track your current location in real-time.</p>
+    </div>
+
+    <!-- Pending Bookings Section -->
+    <div class="card shadow-sm mb-5">
+        <div class="card-header bg-primary text-white">
+            <h2>Your Pending Bookings</h2>
+        </div>
+        <div class="card-body">
+            @if (Model.CurrentBookings.Any(b => b.Status == "pending"))
+            {
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>Pickup Location</th>
+                                <th>Drop Location</th>
+                                <th>Booking Time</th>
+                                <th>Price</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var booking in Model.CurrentBookings.Where(b => b.Status == "pending"))
+                            {
+                                var isRejected = TempData[$"RejectedBooking_{booking.BookingId}"] != null;
+
+                                if (!isRejected)
+                                {
+                                    <tr>
+                                        <td>@booking.PickupLocation</td>
+                                        <td>@booking.DropLocation</td>
+                                        <td>@booking.BookingTime</td>
+                                        <td>@booking.Price</td>
+                                        <td>
+                                            <form action="UpdateBookingStatus" method="post" class="d-inline">
+                                                <input type="hidden" name="bookingId" value="@booking.BookingId" />
+                                                <button type="submit" name="status" value="Accepted" class="btn btn-success btn-sm">Accept</button>
+                                                <button type="submit" name="status" value="Rejected" class="btn btn-danger btn-sm">Reject</button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+            else
+            {
+                <div class="alert alert-warning" role="alert">
+                    No pending bookings available.
+                </div>
+            }
+        </div>
+    </div>
+
+    <!-- Driver Location Section -->
+    <div class="card shadow-sm">
+        <div class="card-header bg-secondary text-white">
+            <h2>Your Current Location</h2>
+        </div>
+        <div class="card-body">
+            <div id="map" style="height: 400px; width: 100%;" class="rounded shadow"></div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script>
+        // Initialize map
+        var map = L.map('map').setView([20.5937, 78.9629], 5); // Default view (India)
+
+        // Add tile layer (OpenStreetMap)
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+        }).addTo(map);
+
+        // Geolocation function to update driver's current location
+        function updateLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function (position) {
+                    var lat = position.coords.latitude;
+                    var lng = position.coords.longitude;
+
+                    // Set map view to driver's location
+                    map.setView([lat, lng], 13);
+
+                    // Add marker for driver's location
+                    L.marker([lat, lng]).addTo(map)
+                        .bindPopup("You are here!")
+                        .openPopup();
+                }, function (error) {
+                    console.error("Error retrieving location: ", error);
+                });
+            } else {
+                alert("Geolocation is not supported by this browser.");
+            }
+        }
+
+        // Call the function to update location
+        updateLocation();
+    </script>
+}

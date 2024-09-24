@@ -13,6 +13,9 @@ namespace CabBookingSystem.Models
         public DbSet<User> Users { get; set; }
         public DbSet<Cab> Cabs { get; set; }
         public DbSet<Booking> Bookings { get; set; }
+        public DbSet<Driver> Drivers { get; set; }
+
+
 
 
     }

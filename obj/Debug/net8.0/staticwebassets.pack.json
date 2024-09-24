@@ -13,6 +13,10 @@
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
+      "Id": "C:\\Users\\danis\\CabBookingSystem\\wwwroot\\images\\Loading.gif",
+      "PackagePath": "staticwebassets\\images\\Loading.gif"
+    },
+    {
       "Id": "C:\\Users\\danis\\CabBookingSystem\\wwwroot\\images\\alto_icon.jpeg",
       "PackagePath": "staticwebassets\\images\\alto_icon.jpeg"
     },
