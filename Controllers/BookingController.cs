@@ -39,7 +39,32 @@ namespace CabBookingSystem.Controllers
             return View(cab);
         }
 
-        [HttpPost]
+
+        [HttpGet]
+        public IActionResult GetStatus(int bookingId)
+        {
+            var booking = _context.Bookings.Find(bookingId);
+            if (booking == null)
+            {
+                return Json(new { status = "not_found" });
+            }
+
+            return Json(new { status = booking.Status.ToLower() }); // Ensure consistency in status comparison
+        }
+
+
+
+
+        public IActionResult Buffer(int bookingId)
+        {
+            var booking = _context.Bookings.Find(bookingId);
+            if (booking == null)
+            {
+                return NotFound();
+            }
+
+            return View(booking); // Ensure you have a corresponding Buffer.cshtml view
+        }
 
 
         [HttpPost]
@@ -63,7 +88,7 @@ namespace CabBookingSystem.Controllers
                 Distance = distance,
                 Price = price,
                 NumberOfPass = numberOfPass,
-                Status = "pending",
+                Status = "pending", // Status is set to pending initially
                 PickupLatitude = pickupLat,
                 PickupLongitude = pickupLng,
                 DropLatitude = dropLat,
@@ -73,7 +98,24 @@ namespace CabBookingSystem.Controllers
             _context.Bookings.Add(booking);
             _context.SaveChanges();
 
-            return View("BookingConfirmation", booking);
+            // Redirect to the buffering page
+            return RedirectToAction("Buffer", new { bookingId = booking.BookingId });
         }
+
+        [HttpGet]
+        public IActionResult Confirmation(int bookingId)
+        {
+            var booking = _context.Bookings.Find(bookingId);
+            if (booking == null)
+            {
+                return NotFound();
+            }
+
+            return View(booking); // This should match the view name and pass the booking model to the view.
+        }
+
+
+
+
     }
 }

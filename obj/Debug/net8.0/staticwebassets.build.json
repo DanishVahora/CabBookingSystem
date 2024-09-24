@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "doHvVkQUSenn/oxI+eubsv7FEJnX5ctA6axpol8QNBU=",
+  "Hash": "Fjko1si/EllEsX7KvTEsxaAk8A8HrN5E510L583QsgI=",
   "Source": "CabBookingSystem",
   "BasePath": "_content/CabBookingSystem",
   "Mode": "Default",
@@ -1345,6 +1345,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\images\\confirmation_banner.jpeg"
+    },
+    {
+      "Identity": "C:\\Users\\danis\\CabBookingSystem\\wwwroot\\images\\d.gif",
+      "SourceId": "CabBookingSystem",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\danis\\CabBookingSystem\\wwwroot\\",
+      "BasePath": "_content/CabBookingSystem",
+      "RelativePath": "images/d.gif",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\d.gif"
     },
     {
       "Identity": "C:\\Users\\danis\\CabBookingSystem\\wwwroot\\images\\jaguar_icon.jpeg",

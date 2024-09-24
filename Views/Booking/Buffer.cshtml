@@ -1,0 +1,53 @@
+﻿<!-- Buffering Page -->
+<div class="buffer-container">
+    <h2>Processing your booking...</h2>
+    <img src="~/images/loading.gif" alt="Loading" class="loading-image" />
+</div>
+
+<!-- JavaScript to poll the server for booking status -->
+<script>
+    var bookingId = @Model.BookingId; // Get the booking ID from the model
+
+    function checkBookingStatus() {
+        fetch(`/Booking/GetStatus?bookingId=${bookingId}`)
+            .then(response => response.json())
+            .then(data => {
+                console.log('Booking status:', data.status); // Log for debugging
+
+                // Redirect if booking is confirmed
+                // Redirect if booking is confirmed
+                if (data.status.toLowerCase() === 'confirmed') {
+                    window.location.href = `/Booking/Confirmation?bookingId=${bookingId}`; // Change 'BookingConfirmation' to 'Confirmation'
+                }
+
+            })
+            .catch(error => {
+                console.error('Error fetching booking status:', error);
+            });
+    }
+
+    // Check the booking status every 3 seconds
+    setInterval(checkBookingStatus, 3000); // Adjust the interval if necessary
+</script>
+
+<!-- Styles for Buffering Page -->
+<style>
+    .buffer-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        min-height: 80vh;
+        background-color: #f8f9fa;
+    }
+
+    .loading-image {
+        width: 100px;
+        margin-top: 20px;
+    }
+
+    h2 {
+        font-size: 24px;
+        color: #333;
+    }
+</style>

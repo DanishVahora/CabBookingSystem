@@ -43,10 +43,17 @@ app.UseRouting();
 app.UseSession(); // Add this before UseAuthorization
 app.UseAuthorization();
 
-app.MapControllerRoute(
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllerRoute(
+        name: "default",
+        pattern: "{controller=Home}/{action=Index}/{id?}");
+});
+
+/*app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
-
+*/
 app.MapRazorPages();
 
 app.Run();
