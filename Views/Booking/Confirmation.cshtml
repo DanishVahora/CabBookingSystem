@@ -1,4 +1,5 @@
 ﻿@model CabBookingSystem.Models.Booking
+@using QRCoder; 
 <!-- Main Container for Confirmation Page -->
 <div class="confirmation-container">
     <div class="confirmation-card">
@@ -29,18 +30,39 @@
                 <h4>Status</h4>
                 <p class="status">@Model.Status</p>
             </div>
+
+            <div class="detail-item">
+                <h4>OTP for Driver</h4>
+                <p class="otp-code">@Model.Otp</p>
+            </div>
+        </div>
+
+        <!-- QR Code Section -->
+        <div class="qr-section">
+            <h4>Your QR Code</h4>
+            <div class="qr-code">
+                @* QR Code Generation using QRCoder *@
+                @{
+                    var qrGenerator = new QRCodeGenerator();
+                    var qrData = qrGenerator.CreateQrCode(@Model.BookingId.ToString(), QRCodeGenerator.ECCLevel.Q);
+                    var qrCode = new PngByteQRCode(qrData);
+                    var qrCodeImage = qrCode.GetGraphic(20);
+                    var qrBase64 = Convert.ToBase64String(qrCodeImage);
+                }
+                <img src="data:image/png;base64,@qrBase64" alt="QR Code" class="qr-image" />
+            </div>
         </div>
 
         <!-- Confirmation Message -->
         <div class="confirmation-message">
-            <p>Thank you for choosing us! We hope you have a pleasant ride.</p>
+            <p>Thank you for choosing us! Your booking is confirmed.</p>
+            <p>Please wait, your driver is on the way. Show the OTP and QR code to the driver for verification.</p>
         </div>
     </div>
 </div>
 
 <!-- Styles for the Confirmation Page -->
 <style>
-    /* Container for the Confirmation Page */
     .confirmation-container {
         display: flex;
         justify-content: center;
@@ -60,7 +82,6 @@
         text-align: center;
     }
 
-    /* Header Section */
     .confirmation-header {
         margin-bottom: 30px;
     }
@@ -85,7 +106,6 @@
         margin-top: 15px;
     }
 
-    /* Booking Details Section */
     .booking-details {
         margin: 30px 0;
         border-top: 1px solid #ddd;
@@ -107,11 +127,35 @@
             color: #333;
         }
 
-    /* Status Styling */
     .status {
         font-weight: bold;
         color: #28a745;
         font-size: 18px;
+    }
+
+    /* OTP Styling */
+    .otp {
+        font-size: 20px;
+        font-weight: bold;
+        color: #ff5722;
+    }
+
+    /* QR Code Section */
+    .qr-section {
+        margin-top: 30px;
+    }
+
+        .qr-section h4 {
+            font-size: 18px;
+            color: #007bff;
+            margin-bottom: 15px;
+        }
+
+    .qr-image {
+        width: 200px;
+        height: 200px;
+        border-radius: 10px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     }
 
     /* Confirmation Message */
@@ -122,6 +166,6 @@
         .confirmation-message p {
             font-size: 16px;
             color: #555;
-            margin-bottom: 0;
+            margin-bottom: 10px;
         }
 </style>

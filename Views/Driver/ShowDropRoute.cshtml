@@ -1,0 +1,68 @@
+﻿@model CabBookingSystem.Models.ShowRouteViewModel
+
+@{
+    Layout = "~/Views/Shared/CabDriverLayout.cshtml"; // Use the shared layout for consistency
+}
+
+
+<div class="d-flex flex-column align-items-center mt-5">
+    <h2 class="text-center mb-4">Route to Drop Location</h2>
+
+    <div class="card mb-4 shadow-sm w-100" style="max-width: 600px;">
+        <div class="card-header bg-primary text-white">
+            <h5 class="mb-0">Booking Information</h5>
+        </div>
+        <div class="card-body">
+            <p><strong>Pickup Location:</strong> @Model.PickupLocation</p>
+            <p><strong>Drop Location:</strong> @Model.DropLocation</p>
+            <p><strong>Booking Time:</strong> @Model.BookingTime.ToString("f")</p>
+            <p><strong>Price:</strong> ₹@Model.Price</p>
+        </div>
+    </div>
+
+    <div class="card w-100" style="max-width: 600px;">
+        <div class="card-header bg-secondary text-white">
+            <h5 class="mb-0">Route Map</h5>
+        </div>
+        <div class="card-body">
+            <div id="map" class="rounded shadow-sm" style="height: 400px; width: 100%;"></div>
+        </div>
+    </div>
+</div>
+
+<!-- Leaflet and Leaflet Routing Machine -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.css" />
+<script src="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.js"></script>
+
+<script>
+    var map = L.map('map').setView([20.5937, 78.9629], 5); // Default view over India
+
+    // Add tile layer (OpenStreetMap)
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+    }).addTo(map);
+
+    // Pickup and drop locations from the model
+    var pickupLocation = [@Model.PickupLatitude, @Model.PickupLongitude];
+    var dropLocation = [@Model.DropLatitude, @Model.DropLongitude];
+
+    // Add markers for pickup and drop locations
+    L.marker(pickupLocation).addTo(map)
+        .bindPopup("Pickup Location")
+        .openPopup();
+
+    L.marker(dropLocation).addTo(map)
+        .bindPopup("Drop Location")
+        .openPopup();
+
+    // Add routing control between pickup and drop locations
+    L.Routing.control({
+        waypoints: [
+            L.latLng(pickupLocation[0], pickupLocation[1]),   // Pickup location
+            L.latLng(dropLocation[0], dropLocation[1]) // Drop location
+        ],
+        routeWhileDragging: true
+    }).addTo(map);
+</script>

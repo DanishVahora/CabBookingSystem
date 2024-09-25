@@ -83,6 +83,10 @@ namespace CabBookingSystem.Controllers
 
             int userId = HttpContext.Session.GetInt32("UserId").Value;
 
+            // Generate a random 6-digit OTP
+            Random random = new Random();
+            int otp = random.Next(100000, 999999);
+
             Booking booking = new Booking
             {
                 UserId = userId,
@@ -97,7 +101,8 @@ namespace CabBookingSystem.Controllers
                 PickupLatitude = pickupLat,
                 PickupLongitude = pickupLng,
                 DropLatitude = dropLat,
-                DropLongitude = dropLng
+                DropLongitude = dropLng,
+                Otp = otp // Store the generated OTP
             };
 
             _context.Bookings.Add(booking);

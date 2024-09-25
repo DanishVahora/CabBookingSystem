@@ -158,7 +158,7 @@ public class DriverController : Controller
 
 
 
-    public IActionResult ShowRoute(int bookingId)
+    public IActionResult ShowDropRoute(int bookingId)
     {
         int? driverId = HttpContext.Session.GetInt32("Id");
 
@@ -182,13 +182,141 @@ public class DriverController : Controller
                 PickupLongitude = booking.PickupLongitude,
                 DropLatitude = booking.DropLatitude,
                 DropLongitude = booking.DropLongitude,
-        };
+            };
 
-            return View(viewModel);
+            return View(viewModel); // Create a corresponding view for ShowDropRoute
         }
 
         return RedirectToAction("Dashboard");
     }
+
+
+
+    [HttpPost]
+    public IActionResult VerifyOtp(string otp, int bookingId)
+    {
+        // Retrieve driver ID from session
+        int? driverId = HttpContext.Session.GetInt32("Id");
+
+        if (driverId == null)
+        {
+            TempData["LoginMessage"] = "Please log in first.";
+            return RedirectToAction("Login");
+        }
+
+        // Check if OTP is null or empty
+        if (string.IsNullOrEmpty(otp))
+        {
+            TempData["OtpError"] = "OTP cannot be empty.";
+            return RedirectToAction("ShowRoute", new { bookingId = bookingId });
+        }
+
+        // Retrieve the booking using the bookingId
+        var booking = _context.Bookings.FirstOrDefault(b => b.BookingId == bookingId);
+
+        if (booking != null)
+        {
+            // Convert the input OTP (string) to an integer
+            if (int.TryParse(otp, out int otpValue))
+            {
+                // Compare the OTP entered with the one in the database
+                if (booking.Otp == otpValue)
+                {
+                    // OTP is correct, redirect to ShowDropRoute action
+                    return RedirectToAction("ShowDropRoute", new { bookingId = bookingId });
+                }
+                else
+                {
+                    // OTP mismatch
+                    TempData["OtpError"] = "Invalid OTP. Please try again.";
+                    return RedirectToAction("ShowRoute", new { bookingId = bookingId });
+                }
+            }
+            else
+            {
+                // Failed to convert OTP to integer
+                TempData["OtpError"] = "OTP must be a valid number.";
+                return RedirectToAction("ShowRoute", new { bookingId = bookingId });
+            }
+        }
+
+        // If booking is not found
+        TempData["OtpError"] = "Booking not found.";
+        return RedirectToAction("Dashboard");
+    }
+
+
+
+
+
+
+
+    public IActionResult ShowRoute(int bookingId)
+    {
+        int? driverId = HttpContext.Session.GetInt32("Id");
+
+        if (driverId == null)
+        {
+            TempData["LoginMessage"] = "Please log in first.";
+            return RedirectToAction("Login");
+        }
+
+        // Log the bookingId being processed
+        System.Diagnostics.Debug.WriteLine($"ShowRoute called with bookingId: {bookingId}");
+
+        var booking = _context.Bookings.FirstOrDefault(b => b.BookingId == bookingId);
+        if (booking == null)
+        {
+            TempData["OtpError"] = "Booking not found.";
+            return RedirectToAction("Dashboard");
+        }
+
+
+        if (booking != null)
+        {
+            var viewModel = new ShowRouteViewModel
+            {
+                PickupLocation = booking.PickupLocation,
+                DropLocation = booking.DropLocation,
+                BookingTime = booking.BookingTime,
+                Price = booking.Price,
+                PickupLatitude = booking.PickupLatitude,
+                PickupLongitude = booking.PickupLongitude,
+                DropLatitude = booking.DropLatitude,
+                DropLongitude = booking.DropLongitude,
+            };
+
+            return View(viewModel);
+        }
+
+        TempData["OtpError"] = "Booking not found.";
+        return RedirectToAction("Dashboard");
+    }
+
+
+    public IActionResult RouteMap(int bookingId)
+    {
+        // You can retrieve the booking details again if needed
+        var booking = _context.Bookings.FirstOrDefault(b => b.BookingId == bookingId);
+
+        if (booking != null)
+        {
+            // Prepare any necessary data for the route map view
+            var viewModel = new ShowRouteViewModel
+            {
+                // Populate with necessary data, such as pickup and drop locations
+                PickupLatitude = booking.PickupLatitude,
+                PickupLongitude = booking.PickupLongitude,
+                DropLatitude = booking.DropLatitude,
+                DropLongitude = booking.DropLongitude
+            };
+
+            return View(viewModel); // Create a corresponding RouteMap view
+        }
+
+        return RedirectToAction("ShowDropRoute");
+    }
+
 
 
 

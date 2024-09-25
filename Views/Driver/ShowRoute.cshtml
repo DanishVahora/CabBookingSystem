@@ -3,6 +3,13 @@
 }
 @model CabBookingSystem.Models.ShowRouteViewModel
 
+
+@{
+    if (TempData["OtpError"]!=null){
+    <p>TempData["OtpError"]</p>
+    }
+}
+
 <div class="d-flex flex-column align-items-center mt-5">
     <h2 class="text-center mb-4">Route Details</h2>
 
@@ -26,21 +33,43 @@
             <div id="map" class="rounded shadow-sm" style="height: 400px; width: 100%;"></div>
         </div>
     </div>
+
+    <!-- OTP Input Section -->
+    <div class="card mb-4 shadow-sm w-100" style="max-width: 600px;">
+        <div class="card-header bg-secondary text-white">
+            <h5 class="mb-0">Verify OTP</h5>
+        </div>
+        <div class="card-body">
+            <form method="post" asp-action="VerifyOtp">
+                <div class="mb-3">
+                    <label for="otpInput" class="form-label">Enter OTP:</label>
+                    <input type="number" class="form-control" id="otpInput" name="otp" required />
+                </div>
+                <input type="hidden" name="bookingId" value="@Model.BookingId" /> <!-- Hidden input for BookingId -->
+                <button type="submit" class="btn btn-primary">Verify</button>
+            </form>
+
+
+        </div>
+    </div>
+
 </div>
 
+<!-- Leaflet and Leaflet Routing Machine -->
 <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.css" />
 <script src="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.js"></script>
+
 <script>
-    var map = L.map('map').setView([20.5937, 78.9629], 5); // Default view (India)
+    var map = L.map('map').setView([20.5937, 78.9629], 5); // Default view over India
 
     // Add tile layer (OpenStreetMap)
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 19,
     }).addTo(map);
 
-    // Target location from the model
+    // Target location (pickup location) from the model
     var targetLocation = [@Model.PickupLatitude, @Model.PickupLongitude];
 
     // Geolocation function to update driver's current location
@@ -60,19 +89,21 @@
 
                 // Add marker for target location
                 L.marker(targetLocation).addTo(map)
-                    .bindPopup("Target Location")
+                    .bindPopup("Pickup Location")
                     .openPopup();
 
-                // Add routing control
+                // Add routing control between driver's location and target
                 L.Routing.control({
                     waypoints: [
                         L.latLng(lat, lng),   // Driver's location
-                        L.latLng(targetLocation[0], targetLocation[1]) // Target location
+                        L.latLng(targetLocation[0], targetLocation[1]) // Target location (pickup)
                     ],
                     routeWhileDragging: true
                 }).addTo(map);
+
             }, function (error) {
                 console.error("Error retrieving location: ", error);
+                alert("Unable to retrieve your location. Please check your GPS settings.");
             });
         } else {
             alert("Geolocation is not supported by this browser.");
