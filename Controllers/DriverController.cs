@@ -38,7 +38,7 @@ public class DriverController : Controller
         }
 
         // If credentials are invalid, show error message
-        ViewBag.Message = "Invalid credentials";
+        TempData["Message"] = "Invalid Credential.";
         return View();
     }
 
@@ -72,6 +72,7 @@ public class DriverController : Controller
         {
             Name = driverName,
             Email = email,
+            Location = location,
             Password = password, // Consider hashing the password
             CabId = 1,
             IsAvailable = false,
@@ -86,7 +87,7 @@ public class DriverController : Controller
         HttpContext.Session.SetInt32("Id", newDriver.Id);
         TempData["LoginMessage"] = "Account Created Successfully!";
 
-        return RedirectToAction("Index", "Home");
+        return RedirectToAction("Dashboard", "Driver");
     }
 
 
@@ -193,7 +194,7 @@ public class DriverController : Controller
 
 
     [HttpPost]
-    public IActionResult VerifyOtp(string otp, int bookingId)
+    public IActionResult VerifyOtp(int otp, int bookingId)
     {
         // Retrieve driver ID from session
         int? driverId = HttpContext.Session.GetInt32("Id");
@@ -204,46 +205,31 @@ public class DriverController : Controller
             return RedirectToAction("Login");
         }
 
-        // Check if OTP is null or empty
-        if (string.IsNullOrEmpty(otp))
-        {
-            TempData["OtpError"] = "OTP cannot be empty.";
-            return RedirectToAction("ShowRoute", new { bookingId = bookingId });
-        }
-
         // Retrieve the booking using the bookingId
         var booking = _context.Bookings.FirstOrDefault(b => b.BookingId == bookingId);
 
-        if (booking != null)
+        // Check if the booking is null
+        if (booking == null)
         {
-            // Convert the input OTP (string) to an integer
-            if (int.TryParse(otp, out int otpValue))
-            {
-                // Compare the OTP entered with the one in the database
-                if (booking.Otp == otpValue)
-                {
-                    // OTP is correct, redirect to ShowDropRoute action
-                    return RedirectToAction("ShowDropRoute", new { bookingId = bookingId });
-                }
-                else
-                {
-                    // OTP mismatch
-                    TempData["OtpError"] = "Invalid OTP. Please try again.";
-                    return RedirectToAction("ShowRoute", new { bookingId = bookingId });
-                }
-            }
-            else
-            {
-                // Failed to convert OTP to integer
-                TempData["OtpError"] = "OTP must be a valid number.";
-                return RedirectToAction("ShowRoute", new { bookingId = bookingId });
-            }
+            // Booking not found, handle the error and redirect to an appropriate page
+            TempData["OtpError"] = "Booking not found.";
+            return RedirectToAction("Dashboard");
         }
 
-        // If booking is not found
-        TempData["OtpError"] = "Booking not found.";
-        return RedirectToAction("Dashboard");
+        // Now check if the OTP matches
+        if (booking.Otp == otp)
+        {
+            // OTP is correct, redirect to ShowDropRoute action
+            return RedirectToAction("ShowDropRoute", new { bookingId = bookingId });
+        }
+        else
+        {
+            // OTP mismatch
+            TempData["OtpError"] = "Invalid OTP. Please try again.";
+            return RedirectToAction("ShowRoute", new { bookingId = bookingId });
+        }
     }
+
 
 
 
@@ -271,6 +257,7 @@ public class DriverController : Controller
             return RedirectToAction("Dashboard");
         }
 
+        ViewBag.bId = bookingId;
 
         if (booking != null)
         {

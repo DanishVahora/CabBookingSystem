@@ -4,28 +4,44 @@
     Layout = "~/Views/Shared/CabDriverLayout.cshtml"; // Use the shared layout for consistency
 }
 
-
 <div class="d-flex flex-column align-items-center mt-5">
-    <h2 class="text-center mb-4">Route to Drop Location</h2>
+    <h2 class="text-center mb-4">Final Drop Route Information</h2>
 
     <div class="card mb-4 shadow-sm w-100" style="max-width: 600px;">
-        <div class="card-header bg-primary text-white">
-            <h5 class="mb-0">Booking Information</h5>
+        <div class="card-header bg-info text-white">
+            <h5 class="mb-0"><i class="fas fa-map-marker-alt"></i> Booking Information</h5>
         </div>
         <div class="card-body">
-            <p><strong>Pickup Location:</strong> @Model.PickupLocation</p>
-            <p><strong>Drop Location:</strong> @Model.DropLocation</p>
-            <p><strong>Booking Time:</strong> @Model.BookingTime.ToString("f")</p>
-            <p><strong>Price:</strong> ₹@Model.Price</p>
+            <p><i class="fas fa-location-arrow"></i> <strong>Pickup Location:</strong> @Model.PickupLocation</p>
+            <p><i class="fas fa-map-marked-alt"></i> <strong>Drop Location:</strong> @Model.DropLocation</p>
+            <p><i class="fas fa-clock"></i> <strong>Booking Time:</strong> @Model.BookingTime.ToString("f")</p>
+            <p><i class="fas fa-money-bill"></i> <strong>Price:</strong> ₹@Model.Price</p>
+            <p><i class="fas fa-phone"></i> <strong>Customer Contact:</strong> 1234567890</p>
         </div>
     </div>
 
-    <div class="card w-100" style="max-width: 600px;">
+    <div class="card mb-4 w-100 shadow-sm" style="max-width: 600px;">
         <div class="card-header bg-secondary text-white">
-            <h5 class="mb-0">Route Map</h5>
+            <h5 class="mb-0"><i class="fas fa-map"></i> Route Map</h5>
         </div>
         <div class="card-body">
             <div id="map" class="rounded shadow-sm" style="height: 400px; width: 100%;"></div>
+        </div>
+    </div>
+
+    <div class="card w-100 shadow-sm" style="max-width: 600px;">
+        <div class="card-header bg-warning text-dark">
+            <h5 class="mb-0"><i class="fas fa-car"></i> Safety Instructions</h5>
+        </div>
+        <div class="card-body">
+            <ul class="list-unstyled">
+                <li><i class="fas fa-car-seat"></i> Always wear your seatbelt</li>
+                <li><i class="fas fa-tachometer-alt"></i> Maintain the speed limit</li>
+                <li><i class="fas fa-traffic-light"></i> Follow all traffic signals</li>
+                <li><i class="fas fa-cloud-sun"></i> Be cautious in bad weather</li>
+                <li><i class="fas fa-user-shield"></i> Ensure the safety of your passenger</li>
+                <li><i class="fas fa-phone-alt"></i> In case of emergencies, contact the dispatch center</li>
+            </ul>
         </div>
     </div>
 </div>
@@ -48,21 +64,23 @@
     var pickupLocation = [@Model.PickupLatitude, @Model.PickupLongitude];
     var dropLocation = [@Model.DropLatitude, @Model.DropLongitude];
 
-    // Add markers for pickup and drop locations
-    L.marker(pickupLocation).addTo(map)
+    // Add markers for pickup and drop locations (fixed)
+    L.marker(pickupLocation, { draggable: false }).addTo(map)
         .bindPopup("Pickup Location")
         .openPopup();
 
-    L.marker(dropLocation).addTo(map)
+    L.marker(dropLocation, { draggable: false }).addTo(map)
         .bindPopup("Drop Location")
         .openPopup();
 
-    // Add routing control between pickup and drop locations
+    // Add routing control between pickup and drop locations, with dragging disabled
     L.Routing.control({
         waypoints: [
             L.latLng(pickupLocation[0], pickupLocation[1]),   // Pickup location
-            L.latLng(dropLocation[0], dropLocation[1]) // Drop location
+            L.latLng(dropLocation[0], dropLocation[1])        // Drop location
         ],
-        routeWhileDragging: true
+        routeWhileDragging: false,  // Disable route dragging
+        addWaypoints: false,        // Disable adding new waypoints
+        draggableWaypoints: false   // Disable dragging of waypoints
     }).addTo(map);
 </script>

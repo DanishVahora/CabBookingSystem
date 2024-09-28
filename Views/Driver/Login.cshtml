@@ -1,6 +1,14 @@
 ﻿@{
     Layout = "~/Views/Shared/CabDriverLayout.cshtml"; // Use the new layout
 }
+
+@if (TempData["Message"] != null)
+{
+    <div class="alert alert-warning">
+        @TempData["Message"]
+    </div>
+}
+
 <!-- Stylish Driver Login Form -->
 <div class="login-container">
     <div class="login-card">
