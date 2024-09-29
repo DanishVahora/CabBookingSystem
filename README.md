@@ -45,16 +45,16 @@ To set up the project locally, follow these steps:
 
 2. **Navigate to the project directory**:
  
-  - cd AdvancedCabBookingSystem
+      - cd AdvancedCabBookingSystem
 
 3. **Restore dependencies**:
 
-  - dotnet restore
+      - dotnet restore
 
 4. **Build the project**:
 
-  - dotnet build
+      - dotnet build
   
 5. **Run the application**:
 
-  - dotnet run
+      - dotnet run
