@@ -9,6 +9,10 @@
       "PackagePath": "staticwebassets\\css\\site.css"
     },
     {
+      "Id": "C:\\Users\\danis\\CabBookingSystem\\wwwroot\\css\\style.css",
+      "PackagePath": "staticwebassets\\css\\style.css"
+    },
+    {
       "Id": "C:\\Users\\danis\\CabBookingSystem\\wwwroot\\favicon.ico",
       "PackagePath": "staticwebassets\\favicon.ico"
     },
@@ -91,6 +95,10 @@
     {
       "Id": "C:\\Users\\danis\\CabBookingSystem\\wwwroot\\images\\wagonr_icon.jpeg",
       "PackagePath": "staticwebassets\\images\\wagonr_icon.jpeg"
+    },
+    {
+      "Id": "C:\\Users\\danis\\CabBookingSystem\\wwwroot\\js\\scripts.js",
+      "PackagePath": "staticwebassets\\js\\scripts.js"
     },
     {
       "Id": "C:\\Users\\danis\\CabBookingSystem\\wwwroot\\js\\site.js",

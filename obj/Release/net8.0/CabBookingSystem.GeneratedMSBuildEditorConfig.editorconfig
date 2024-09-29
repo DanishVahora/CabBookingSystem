@@ -42,28 +42,8 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQm9va2luZ1xEZXRhaWxzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/danis/CabBookingSystem/Views/Booking/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQm9va2luZ1xJbmRleC5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/danis/CabBookingSystem/Views/Booking/WaitingForDriver.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQm9va2luZ1xXYWl0aW5nRm9yRHJpdmVyLmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/danis/CabBookingSystem/Views/Cab/Details.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2FiXERldGFpbHMuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/danis/CabBookingSystem/Views/Cab/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2FiXEluZGV4LmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
 [C:/Users/danis/CabBookingSystem/Views/Driver/Dashboard.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRHJpdmVyXERhc2hib2FyZC5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/danis/CabBookingSystem/Views/Driver/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRHJpdmVyXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/danis/CabBookingSystem/Views/Driver/Login.cshtml]

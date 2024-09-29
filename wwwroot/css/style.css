@@ -1,0 +1,65 @@
+﻿/* Custom styles for the range slider */
+.range-slider {
+    width: 100%; /* Make the slider fill the width of its container */
+    -webkit-appearance: none; /* Remove default styling in WebKit browsers */
+    appearance: none;
+    height: 10px; /* Height of the slider track */
+    background: #ddd; /* Background color of the track */
+    border-radius: 5px; /* Rounded corners for the track */
+    outline: none; /* Remove the outline when focused */
+    opacity: 0.9;
+    transition: opacity 0.3s ease; /* Smooth transition effect */
+}
+
+    .range-slider:hover {
+        opacity: 1;
+    }
+
+    /* Custom style for the slider thumb */
+    .range-slider::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 20px; /* Thumb width */
+        height: 20px; /* Thumb height */
+        background-color: #007bff; /* Thumb color */
+        border-radius: 50%; /* Rounded thumb */
+        cursor: pointer; /* Change the cursor on hover */
+    }
+
+    .range-slider::-moz-range-thumb {
+        width: 20px;
+        height: 20px;
+        background-color: #007bff;
+        border-radius: 50%;
+        cursor: pointer;
+    }
+
+
+/* Shrink the routing instructions container */
+.leaflet-routing-container {
+    font-size: 12px; /* Smaller font size */
+    background-color: rgba(255, 255, 255, 0.8); /* Transparent background */
+    width: 200px; /* Adjust width */
+    padding: 5px;
+    position: absolute;
+    top: 10px; /* Place at the top */
+    right: 10px; /* Place at the right */
+    z-index: 1000;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5); /* Add subtle shadow */
+}
+
+    /* Hide unnecessary elements inside the routing container */
+    .leaflet-routing-container .leaflet-routing-instructions {
+        display: none; /* Hide detailed instructions */
+    }
+
+    /* Optional: Hide alternative routes */
+    .leaflet-routing-container .leaflet-routing-alt {
+        display: none;
+    }
+
+/* Style for alert messages */
+#message-container {
+    margin-bottom: 10px;
+}

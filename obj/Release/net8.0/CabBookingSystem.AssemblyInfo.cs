@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("CabBookingSystem")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+eaa4e304080e78b0642e10cbdc7f876664eac4dd")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ce3071128c9b73a7a7df617e15980fd2e1cc9783")]
 [assembly: System.Reflection.AssemblyProductAttribute("CabBookingSystem")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CabBookingSystem")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

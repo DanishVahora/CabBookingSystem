@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "rdHmbI0iP4ZuKQ1TlaXUTHKje16N9if+erULwHo+7WU=",
+  "Hash": "DbifFB38huovOR3hKRDRLpRSx6cdgIamn9d85Q5eQ1Q=",
   "Source": "CabBookingSystem",
   "BasePath": "_content/CabBookingSystem",
   "Mode": "Default",
@@ -1214,6 +1214,25 @@
       "OriginalItemSpec": "wwwroot\\css\\site.css"
     },
     {
+      "Identity": "C:\\Users\\danis\\CabBookingSystem\\wwwroot\\css\\style.css",
+      "SourceId": "CabBookingSystem",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\danis\\CabBookingSystem\\wwwroot\\",
+      "BasePath": "_content/CabBookingSystem",
+      "RelativePath": "css/style.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\style.css"
+    },
+    {
       "Identity": "C:\\Users\\danis\\CabBookingSystem\\wwwroot\\favicon.ico",
       "SourceId": "CabBookingSystem",
       "SourceType": "Discovered",
@@ -1611,6 +1630,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\images\\wagonr_icon.jpeg"
+    },
+    {
+      "Identity": "C:\\Users\\danis\\CabBookingSystem\\wwwroot\\js\\scripts.js",
+      "SourceId": "CabBookingSystem",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\danis\\CabBookingSystem\\wwwroot\\",
+      "BasePath": "_content/CabBookingSystem",
+      "RelativePath": "js/scripts.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\scripts.js"
     },
     {
       "Identity": "C:\\Users\\danis\\CabBookingSystem\\wwwroot\\js\\site.js",
