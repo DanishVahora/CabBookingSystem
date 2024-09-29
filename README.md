@@ -44,16 +44,17 @@ Navigate to the project directory:
 
 
 2. **cd AdvancedCabBookingSystem**:
-  Open the project in your preferred IDE (e.g., Visual Studio or Visual Studio Code).
+ 
+  - Open the project in your preferred IDE (e.g., Visual Studio or Visual Studio Code).
 
 3. **Restore dependencies**:
 
-  dotnet restore
+  - dotnet restore
 
 4.**Build the project**:
 
-  dotnet build
+  - dotnet build
   
 5. **Run the application**:
 
-  dotnet run
+  - dotnet run
