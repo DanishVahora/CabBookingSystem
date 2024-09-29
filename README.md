@@ -40,3 +40,20 @@ To set up the project locally, follow these steps:
 1. **Clone the repository**:
    ```bash
    git clone https://github.com/your-username/AdvancedCabBookingSystem.git
+Navigate to the project directory:
+
+
+2. **cd AdvancedCabBookingSystem**:
+  Open the project in your preferred IDE (e.g., Visual Studio or Visual Studio Code).
+
+3. **Restore dependencies**:
+
+  dotnet restore
+
+4.**Build the project**:
+
+  dotnet build
+  
+5. **Run the application**:
+
+  dotnet run
