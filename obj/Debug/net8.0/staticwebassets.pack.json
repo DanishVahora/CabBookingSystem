@@ -17,6 +17,18 @@
       "PackagePath": "staticwebassets\\images\\Loading.gif"
     },
     {
+      "Id": "C:\\Users\\danis\\CabBookingSystem\\wwwroot\\images\\Prime_Sedan_icon.png",
+      "PackagePath": "staticwebassets\\images\\Prime_Sedan_icon.png"
+    },
+    {
+      "Id": "C:\\Users\\danis\\CabBookingSystem\\wwwroot\\images\\Prime_Suv+_icon.png",
+      "PackagePath": "staticwebassets\\images\\Prime_Suv+_icon.png"
+    },
+    {
+      "Id": "C:\\Users\\danis\\CabBookingSystem\\wwwroot\\images\\Prime_Suv_icon.png",
+      "PackagePath": "staticwebassets\\images\\Prime_Suv_icon.png"
+    },
+    {
       "Id": "C:\\Users\\danis\\CabBookingSystem\\wwwroot\\images\\alto_icon.jpeg",
       "PackagePath": "staticwebassets\\images\\alto_icon.jpeg"
     },
@@ -29,12 +41,16 @@
       "PackagePath": "staticwebassets\\images\\bmw_icon.jpeg"
     },
     {
-      "Id": "C:\\Users\\danis\\CabBookingSystem\\wwwroot\\images\\cabImg.avif",
-      "PackagePath": "staticwebassets\\images\\cabImg.avif"
+      "Id": "C:\\Users\\danis\\CabBookingSystem\\wwwroot\\images\\cabImg1.png",
+      "PackagePath": "staticwebassets\\images\\cabImg1.png"
     },
     {
       "Id": "C:\\Users\\danis\\CabBookingSystem\\wwwroot\\images\\city_icon.jpeg",
       "PackagePath": "staticwebassets\\images\\city_icon.jpeg"
+    },
+    {
+      "Id": "C:\\Users\\danis\\CabBookingSystem\\wwwroot\\images\\confirm.jpeg",
+      "PackagePath": "staticwebassets\\images\\confirm.jpeg"
     },
     {
       "Id": "C:\\Users\\danis\\CabBookingSystem\\wwwroot\\images\\confirmation_banner.jpeg",
@@ -43,6 +59,10 @@
     {
       "Id": "C:\\Users\\danis\\CabBookingSystem\\wwwroot\\images\\d.gif",
       "PackagePath": "staticwebassets\\images\\d.gif"
+    },
+    {
+      "Id": "C:\\Users\\danis\\CabBookingSystem\\wwwroot\\images\\download.png",
+      "PackagePath": "staticwebassets\\images\\download.png"
     },
     {
       "Id": "C:\\Users\\danis\\CabBookingSystem\\wwwroot\\images\\jaguar_icon.jpeg",
@@ -55,6 +75,10 @@
     {
       "Id": "C:\\Users\\danis\\CabBookingSystem\\wwwroot\\images\\mercedes_icon.jpeg",
       "PackagePath": "staticwebassets\\images\\mercedes_icon.jpeg"
+    },
+    {
+      "Id": "C:\\Users\\danis\\CabBookingSystem\\wwwroot\\images\\mini_icon.png",
+      "PackagePath": "staticwebassets\\images\\mini_icon.png"
     },
     {
       "Id": "C:\\Users\\danis\\CabBookingSystem\\wwwroot\\images\\porsche_icon.jpeg",

@@ -11,8 +11,6 @@
 
 <!-- Stylish Driver Signup Form -->
 <div class="signup-container">
-   
-
     <div class="signup-card">
         <h2>Driver Signup</h2>
         <form method="post" action="/Driver/Signup">
@@ -37,12 +35,45 @@
                 <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" placeholder="Confirm your password" required />
             </div>
 
-            <button type="submit" class="btn btn-primary">Signup</button>
+            <!-- Cab Type Selection -->
+            <div class="form-group">
+                <label>Cab Type</label>
+                <div class="cab-type-selection">
+                    <label class="cab-type-option">
+                        <input type="radio" name="cabType" value="1" required />
+                        <div class="cab-type-info">
+                            <img src="/images/mini_icon.png" alt="Mini Cab" class="cab-image" />
+                            <span>Mini</span>
+                        </div>
+                    </label>
+                    <label class="cab-type-option">
+                        <input type="radio" name="cabType" value="2" required />
+                        <div class="cab-type-info">
+                            <img src="/images/Prime_Sedan_icon.png" alt="Prime Sedan" class="cab-image" />
+                            <span>Prime Sedan</span>
+                        </div>
+                    </label>
+                    <label class="cab-type-option">
+                        <input type="radio" name="cabType" value="3" required />
+                        <div class="cab-type-info">
+                            <img src="/images/Prime_Suv_icon.png" alt="Prime SUV" class="cab-image" />
+                            <span>Prime SUV</span>
+                        </div>
+                    </label>
+                    <label class="cab-type-option">
+                        <input type="radio" name="cabType" value="4" required />
+                        <div class="cab-type-info">
+                            <img src="/images/Prime_Suv+_icon.png" alt="Prime SUV+" class="cab-image" />
+                            <span>Prime SUV+</span>
+                        </div>
+                    </label>
+                </div>
+            </div>
 
-            
+            <button type="submit" class="btn btn-primary">Signup</button>
         </form>
         <br />
-        <a href="/Driver/Login" style="text-decoration:none">Already have an account? Login here</a>
+        <a href="/Driver/Login" class="login-link">Already have an account? Login here</a>
     </div>
 </div>
 
@@ -52,24 +83,31 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        min-height: 80vh;
-        background: #f8f9fa;
+        min-height: 100vh;
+        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        padding: 20px;
     }
 
     .signup-card {
         background-color: #fff;
-        padding: 30px;
-        border-radius: 12px;
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-        max-width: 400px;
+        padding: 40px;
+        border-radius: 16px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        max-width: 500px;
         width: 100%;
         text-align: center;
+        transition: box-shadow 0.3s ease-in-out;
     }
 
+        .signup-card:hover {
+            box-shadow: 0 12px 36px rgba(0, 0, 0, 0.15);
+        }
+
     h2 {
-        font-size: 28px;
-        margin-bottom: 20px;
+        font-size: 30px;
+        margin-bottom: 30px;
         color: #007bff;
+        font-weight: bold;
     }
 
     .form-group {
@@ -79,28 +117,89 @@
 
     .form-control {
         width: 100%;
-        padding: 10px;
+        padding: 12px;
         border: 1px solid #ddd;
         border-radius: 8px;
+        transition: border-color 0.3s ease;
+    }
+
+        .form-control:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+
+    .cab-type-selection {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 15px;
+    }
+
+    .cab-type-option {
+        display: flex;
+        align-items: center;
+        width: 48%;
+        cursor: pointer;
+        background-color: #f8f9fa;
+        border-radius: 8px;
+        padding: 10px;
+        transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    }
+
+        .cab-type-option:hover {
+            background-color: #f1f1f1;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+        }
+
+    .cab-type-info {
+        display: flex;
+        align-items: center;
+    }
+
+    .cab-image {
+        width: 60px;
+        height: auto;
+        margin-right: 10px;
+        border-radius: 8px;
+        border: 2px solid transparent;
+        transition: border-color 0.3s ease;
+    }
+
+    .cab-type-option input[type="radio"]:checked + .cab-type-info .cab-image {
+        border-color: #007bff;
     }
 
     .btn-primary {
         background-color: #007bff;
         color: #fff;
-        padding: 10px 20px;
+        padding: 12px 25px;
         border-radius: 30px;
-        box-shadow: 0 3px 8px rgba(0, 123, 255, 0.4);
+        box-shadow: 0 4px 10px rgba(0, 123, 255, 0.4);
         transition: background 0.3s ease, box-shadow 0.3s ease;
+        width: 100%;
     }
 
         .btn-primary:hover {
             background-color: #0056b3;
-            box-shadow: 0 6px 12px rgba(0, 123, 255, 0.6);
+            box-shadow: 0 6px 15px rgba(0, 123, 255, 0.6);
+        }
+
+    .login-link {
+        text-decoration: none;
+        color: #007bff;
+        margin-top: 20px;
+        display: inline-block;
+    }
+
+        .login-link:hover {
+            text-decoration: underline;
         }
 
     .alert {
         padding: 10px;
         border-radius: 8px;
         font-size: 14px;
+        margin-bottom: 20px;
     }
 </style>

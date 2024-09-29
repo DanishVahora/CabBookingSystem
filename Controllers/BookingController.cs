@@ -122,6 +122,13 @@ namespace CabBookingSystem.Controllers
                 return RedirectToAction("Login", "Account");
             }
             var booking = _context.Bookings.Find(bookingId);
+
+            var cabId = booking?.CabId;
+            var cab = _context.Cabs.Find(cabId);
+
+            ViewBag.cabType = cab.CabType ;
+
+
             if (booking == null)
             {
                 return NotFound();

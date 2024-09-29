@@ -6,12 +6,11 @@
     <div class="cab-info-card">
         <div class="cab-image">
             <!-- Placeholder image for the cab type based on the model -->
-            <img src="~/images/@Model.CabType.ToLower().Replace(' ', '_')_icon.jpeg" alt="@Model.CabType" />
+            <img src="~/images/@Model.CabType.ToLower().Replace(' ', '_')_icon.png" alt="@Model.CabType" />cd ..
         </div>
         <div class="cab-details">
             <h2>Confirm Your Booking</h2>
             <p><strong>Cab Number:</strong> @Model.CabNumber</p>
-            <p><strong>Driver:</strong> @Model.DriverName</p>
             <p><strong>Type:</strong> @Model.CabType</p>
         </div>
     </div>

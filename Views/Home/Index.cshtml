@@ -7,6 +7,43 @@
 <script src="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.js"></script>
 
 <style>
+    /* Custom styles for the range slider */
+    .range-slider {
+        width: 100%; /* Make the slider fill the width of its container */
+        -webkit-appearance: none; /* Remove default styling in WebKit browsers */
+        appearance: none;
+        height: 10px; /* Height of the slider track */
+        background: #ddd; /* Background color of the track */
+        border-radius: 5px; /* Rounded corners for the track */
+        outline: none; /* Remove the outline when focused */
+        opacity: 0.9;
+        transition: opacity 0.3s ease; /* Smooth transition effect */
+    }
+
+        .range-slider:hover {
+            opacity: 1;
+        }
+
+        /* Custom style for the slider thumb */
+        .range-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px; /* Thumb width */
+            height: 20px; /* Thumb height */
+            background-color: #007bff; /* Thumb color */
+            border-radius: 50%; /* Rounded thumb */
+            cursor: pointer; /* Change the cursor on hover */
+        }
+
+        .range-slider::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            background-color: #007bff;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+
     /* Shrink the routing instructions container */
     .leaflet-routing-container {
         font-size: 12px; /* Smaller font size */
@@ -89,8 +126,11 @@
                     <br />
                     <div class="form-group">
                         <label for="persons">Total Persons:</label>
-                        <input type="number" id="persons" name="TotalPersons" class="form-control" placeholder="Enter the total number of persons" required />
+                        <input type="range" id="persons" name="TotalPersons" class="form-control range-slider" min="1" max="4" value="1" oninput="updatePersonCount(this.value)" required />
+                        <span id="personCount">1</span>
                     </div>
+
+
                     <br />
                     <div class="form-group">
                         <label for="distance">Distance (km):</label>
@@ -144,6 +184,10 @@
 </footer>
 
 <script>
+
+    function updatePersonCount(value) {
+        document.getElementById('personCount').innerText = value;
+    }
 
 
     function validateForm() {

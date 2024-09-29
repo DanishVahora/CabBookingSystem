@@ -50,7 +50,7 @@ public class DriverController : Controller
 
     // POST: Signup
     [HttpPost]
-    public IActionResult Signup(string driverName, string location, string email, string password, string confirmPassword)
+    public IActionResult Signup(string driverName, string location, string email, string password, string confirmPassword, int cabType)
     {
         // Check if a driver with the same email already exists
         var existingDriver = _context.Drivers.SingleOrDefault(d => d.Email == email);
@@ -74,8 +74,7 @@ public class DriverController : Controller
             Email = email,
             Location = location,
             Password = password, // Consider hashing the password
-            CabId = 1,
-            IsAvailable = false,
+            CabId = cabType,
             PhoneNumber = 21144 // Replace with actual phone number logic if needed
         };
 
@@ -93,8 +92,6 @@ public class DriverController : Controller
 
     public IActionResult Dashboard()
     {
-       
-
         // Retrieve the driver ID from the session
         int? driverId = HttpContext.Session.GetInt32("Id");
 
@@ -114,8 +111,10 @@ public class DriverController : Controller
             return NotFound();
         }
 
-        // Fetch current bookings where the pickup location matches the driver's location
-        var currentBookings = _context.Bookings.ToList();
+        // Fetch current bookings where the CabId matches the driver's CabId and status is "pending"
+        var currentBookings = _context.Bookings
+            .Where(b => b.CabId == driver.CabId && b.Status == "pending")
+            .ToList();
 
         // Create the view model
         var dashboardViewModel = new DashboardViewModel
@@ -126,6 +125,44 @@ public class DriverController : Controller
 
         return View(dashboardViewModel); // Pass the view model to the view
     }
+
+    public IActionResult Profile()
+    {
+        int? driverId = HttpContext.Session.GetInt32("Id");
+
+        if (driverId == null)
+        {
+            TempData["LoginMessage"] = "Please log in first.";
+            return RedirectToAction("Login");
+        }
+
+        var driver = _context.Drivers
+            .Include(d => d.Cab) // Include related cab information
+            .FirstOrDefault(d => d.Id == driverId);
+
+        if (driver == null)
+        {
+            return NotFound(); // Return a 404 if the driver is not found
+        }
+
+        var cab = _context.Cabs.Find(driver.CabId); // Now safe to access driver.CabId
+
+        if (cab != null) // Check if cab is found
+        {
+            ViewBag.CabType = cab.CabType;
+        }
+        else
+        {
+            ViewBag.CabType = "Unknown"; // Or handle the case where the cab is not found
+        }
+
+        return View(driver);
+    }
+
+
+
+
+
 
     [HttpPost]
     public IActionResult UpdateBookingStatus(int bookingId, string status)

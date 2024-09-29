@@ -12,8 +12,8 @@ namespace CabBookingSystem.Controllers
             // You can fetch the list of cabs from the database (for now, a static list)
             List<Cab> cabs = new List<Cab>
             {
-                new Cab { CabId = 1, CabNumber = "ABC123", DriverName = "John Doe", CabType = "Sedan" },
-                new Cab { CabId = 2, CabNumber = "XYZ456", DriverName = "Jane Smith", CabType = "SUV" }
+                new Cab { CabId = 1, CabNumber = "ABC123", CabType = "Sedan" },
+                new Cab { CabId = 2, CabNumber = "XYZ456", CabType = "SUV" }
             };
             return View(cabs);
         }
@@ -21,7 +21,7 @@ namespace CabBookingSystem.Controllers
         public IActionResult Details(int id)
         {
             // Fetch the cab details using id
-            Cab cab = new Cab { CabId = id, CabNumber = "ABC123", DriverName = "John Doe", CabType = "Sedan" };
+            Cab cab = new Cab { CabId = id, CabNumber = "ABC123",  CabType = "Sedan" };
             return View(cab);
         }
     }

@@ -1,0 +1,118 @@
+﻿@model CabBookingSystem.Models.Driver
+
+@{
+    Layout = "~/Views/Shared/CabDriverLayout.cshtml"; // Use the new layout
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Driver Profile</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Custom CSS -->
+    <style>
+        /* Only style the profile card section */
+        .profile-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: calc(100vh - 100px); /* Adjust height to fit in the page layout */
+            padding: 20px;
+            background-color: #f4f7f6;
+        }
+
+        .profile-card {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 350px;
+            text-align: center;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+            .profile-card img {
+                width: 100px;
+                height: 100px;
+                border-radius: 50%;
+                object-fit: cover;
+            }
+
+            .profile-card h2 {
+                font-size: 24px;
+                margin-bottom: 5px;
+                color: #333;
+            }
+
+            .profile-card p {
+                font-size: 16px;
+                color: #777;
+            }
+
+            .profile-card .cab-icon {
+                margin-top: 10px;
+            }
+
+            .profile-card .details {
+                margin-top: 15px;
+                text-align: left;
+            }
+
+        .details h3 {
+            font-size: 20px;
+            margin: 10px 0;
+        }
+
+        .details p {
+            font-size: 16px;
+            margin: 5px 0;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            margin-top: 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #4CAF50;
+            color: #fff;
+            text-decoration: none;
+            font-size: 16px;
+        }
+
+            .button:hover {
+                background-color: #45a049;
+            }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar and other page elements will remain unaffected -->
+    <!-- Profile section -->
+    <div class="profile-container">
+        <div class="profile-card">
+            <!-- Driver Image (Placeholder) -->
+            <i class='fas fa-id-card' style='font-size:48px;color:#007bff'></i>
+            <br />
+            <br />
+            <h2>Driver Profile</h2>
+
+            <!-- Cab Type Icon -->
+            <img class="cab-icon" src="~/images/@ViewBag.CabType.ToLower().Replace(' ', '_')_icon.png" alt="@ViewBag.CabType" />
+
+            <div class="details">
+                <h3>@Model.Name</h3>
+                <p><strong>Email:</strong> @Model.Email</p>
+                <p><strong>Location:</strong> @Model.Location</p>
+            </div>
+
+            <!-- Back Button -->
+            <a href="/Driver/Dashboard" class="button">Back to Dashboard</a>
+        </div>
+    </div>
+
+</body>
+</html>

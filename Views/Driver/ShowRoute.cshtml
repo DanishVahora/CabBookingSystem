@@ -62,7 +62,14 @@
 <script src="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.js"></script>
 
 <script>
-    var map = L.map('map').setView([20.5937, 78.9629], 5); // Default view over India
+    var map = L.map('map', {
+        center: [20.5937, 78.9629], // Default view over India
+        zoom: 5,
+        dragging: false, // Disable map dragging
+        scrollWheelZoom: false, // Disable zooming with the scroll wheel
+        doubleClickZoom: false, // Disable zooming by double-clicking
+        zoomControl: false // Hide zoom controls
+    });
 
     // Add tile layer (OpenStreetMap)
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -82,23 +89,24 @@
                 // Set map view to driver's location
                 map.setView([lat, lng], 13);
 
-                // Add marker for driver's location
-                L.marker([lat, lng]).addTo(map)
+                // Add marker for driver's location, non-draggable
+                L.marker([lat, lng], { draggable: false }).addTo(map)
                     .bindPopup("You are here!")
                     .openPopup();
 
-                // Add marker for target location
-                L.marker(targetLocation).addTo(map)
+                // Add marker for target location, non-draggable
+                L.marker(targetLocation, { draggable: false }).addTo(map)
                     .bindPopup("Pickup Location")
                     .openPopup();
 
-                // Add routing control between driver's location and target
+                // Add routing control between driver's location and target location
                 L.Routing.control({
                     waypoints: [
-                        L.latLng(lat, lng),   // Driver's location
-                        L.latLng(targetLocation[0], targetLocation[1]) // Target location (pickup)
+                        L.latLng(lat, lng),   // Driver's current location
+                        L.latLng(targetLocation[0], targetLocation[1]) // Pickup location
                     ],
-                    routeWhileDragging: true
+                    routeWhileDragging: false, // Disable route dragging
+                    draggableWaypoints: false // Disable waypoint dragging
                 }).addTo(map);
 
             }, function (error) {
@@ -113,3 +121,4 @@
     // Call the function to update location
     updateLocation();
 </script>
+

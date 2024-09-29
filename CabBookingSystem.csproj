@@ -37,7 +37,6 @@
 
   <ItemGroup>
     <None Include="wwwroot\images\background.jpeg" />
-    <None Include="wwwroot\images\cabImg.avif" />
     <None Include="wwwroot\images\jaguar_icon.jpeg" />
     <None Include="wwwroot\images\land_cruiser_icon.jpeg" />
     <None Include="wwwroot\images\porsche_icon.jpeg" />
