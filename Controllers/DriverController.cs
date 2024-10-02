@@ -349,7 +349,7 @@ public class DriverController : Controller
     public IActionResult Logout()
     {
         // Clear the session and redirect to login page
-        HttpContext.Session.Clear();
-        return RedirectToAction("Index", "Home");
+        HttpContext.Session.Remove("Id");
+        return RedirectToAction("Login", "Driver");
     }
 }

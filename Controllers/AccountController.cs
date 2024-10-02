@@ -101,7 +101,7 @@ public class AccountController : Controller
     public IActionResult Logout()
     {
         // Clear the session and redirect to login page
-        HttpContext.Session.Clear();
+        HttpContext.Session.Remove("UserId");
         return RedirectToAction("Index","Home");
     }
 }
