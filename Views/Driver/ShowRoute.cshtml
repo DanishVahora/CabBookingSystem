@@ -56,61 +56,66 @@
 </div>
 
 <!-- Leaflet and Leaflet Routing Machine -->
+<!-- Leaflet and Leaflet Routing Machine -->
 <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.css" />
 <script src="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.js"></script>
 
 <script>
+    // Initialize the map with default location and zoom level
     var map = L.map('map', {
         center: [20.5937, 78.9629], // Default view over India
         zoom: 5,
-        dragging: false, // Disable map dragging
-        scrollWheelZoom: false, // Disable zooming with the scroll wheel
-        doubleClickZoom: false, // Disable zooming by double-clicking
-        zoomControl: false // Hide zoom controls
+        zoomControl: false // Hide default zoom controls
     });
 
     // Add tile layer (OpenStreetMap)
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        maxZoom: 19,
+        maxZoom: 19
+    }).addTo(map);
+
+    // Add custom zoom control buttons in the top right corner
+    L.control.zoom({
+        position: 'topright'
     }).addTo(map);
 
     // Target location (pickup location) from the model
     var targetLocation = [@Model.PickupLatitude, @Model.PickupLongitude];
 
-    // Geolocation function to update driver's current location
+    // Function to update driver's current location and route to pickup location
     function updateLocation() {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(function (position) {
                 var lat = position.coords.latitude;
                 var lng = position.coords.longitude;
 
-                // Set map view to driver's location
+                // Set map view to driver's location with appropriate zoom level
                 map.setView([lat, lng], 13);
 
-                // Add marker for driver's location, non-draggable
-                L.marker([lat, lng], { draggable: false }).addTo(map)
+                // Add marker for driver's current location
+                var driverMarker = L.marker([lat, lng]).addTo(map)
                     .bindPopup("You are here!")
                     .openPopup();
 
-                // Add marker for target location, non-draggable
-                L.marker(targetLocation, { draggable: false }).addTo(map)
+                // Add marker for target (pickup) location
+                var pickupMarker = L.marker(targetLocation).addTo(map)
                     .bindPopup("Pickup Location")
                     .openPopup();
 
-                // Add routing control between driver's location and target location
+                // Add routing control from driver's location to pickup location
                 L.Routing.control({
                     waypoints: [
-                        L.latLng(lat, lng),   // Driver's current location
+                        L.latLng(lat, lng),        // Driver's current location
                         L.latLng(targetLocation[0], targetLocation[1]) // Pickup location
                     ],
-                    routeWhileDragging: false, // Disable route dragging
-                    draggableWaypoints: false // Disable waypoint dragging
+                    routeWhileDragging: false,    // Disable route dragging
+                    draggableWaypoints: false,    // Disable waypoint dragging
+                    createMarker: function () { return null; } // Prevents extra route markers
                 }).addTo(map);
 
             }, function (error) {
-                console.error("Error retrieving location: ", error);
+                console.error("Error retrieving location:", error);
                 alert("Unable to retrieve your location. Please check your GPS settings.");
             });
         } else {
@@ -118,7 +123,8 @@
         }
     }
 
-    // Call the function to update location
+    // Call the function to update location on page load
     updateLocation();
 </script>
+>
 

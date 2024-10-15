@@ -33,5 +33,7 @@ namespace CabBookingSystem.Models
         public double DropLongitude { get; set; } // Longitude for Drop Location
 
         public int? Otp { get; set; }
+        public int? DriverId { get; set; }
+
     }
 }

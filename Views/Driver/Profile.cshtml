@@ -1,118 +1,152 @@
-﻿@model CabBookingSystem.Models.Driver
-
-@{
+﻿@{
     Layout = "~/Views/Shared/CabDriverLayout.cshtml"; // Use the new layout
 }
+@model IEnumerable<CabBookingSystem.Models.Booking>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Driver Profile</title>
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-    <!-- Custom CSS -->
-    <style>
-        /* Only style the profile card section */
-        .profile-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: calc(100vh - 100px); /* Adjust height to fit in the page layout */
-            padding: 20px;
-            background-color: #f4f7f6;
-        }
-
-        .profile-card {
-            background-color: #fff;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            width: 350px;
-            text-align: center;
-            padding: 20px;
-            margin-top: 20px;
-        }
-
-            .profile-card img {
-                width: 100px;
-                height: 100px;
-                border-radius: 50%;
-                object-fit: cover;
-            }
-
-            .profile-card h2 {
-                font-size: 24px;
-                margin-bottom: 5px;
-                color: #333;
-            }
-
-            .profile-card p {
-                font-size: 16px;
-                color: #777;
-            }
-
-            .profile-card .cab-icon {
-                margin-top: 10px;
-            }
-
-            .profile-card .details {
-                margin-top: 15px;
-                text-align: left;
-            }
-
-        .details h3 {
-            font-size: 20px;
-            margin: 10px 0;
-        }
-
-        .details p {
-            font-size: 16px;
-            margin: 5px 0;
-        }
-
-        .button {
-            display: inline-block;
-            padding: 10px 20px;
-            margin-top: 20px;
-            border: none;
-            border-radius: 5px;
-            background-color: #4CAF50;
-            color: #fff;
-            text-decoration: none;
-            font-size: 16px;
-        }
-
-            .button:hover {
-                background-color: #45a049;
-            }
-    </style>
-</head>
-<body>
-
-    <!-- Navbar and other page elements will remain unaffected -->
-    <!-- Profile section -->
-    <div class="profile-container">
-        <div class="profile-card">
-            <!-- Driver Image (Placeholder) -->
-            <i class='fas fa-id-card' style='font-size:48px;color:#007bff'></i>
-            <br />
-            <br />
-            <h2>Driver Profile</h2>
-
-            <!-- Cab Type Icon -->
-            <img class="cab-icon" src="~/images/@ViewBag.CabType.ToLower().Replace(' ', '_')_icon.png" alt="@ViewBag.CabType" />
-
-            <div class="details">
-                <h3>@Model.Name</h3>
-                <p><strong>Email:</strong> @Model.Email</p>
-                <p><strong>Location:</strong> @Model.Location</p>
-            </div>
-
-            <!-- Back Button -->
-            <a href="/Driver/Dashboard" class="button">Back to Dashboard</a>
+<div class="profile-container">
+    <!-- Driver Profile Information -->
+    <div class="profile-header">
+        <h2>Driver Profile</h2>
+        <div class="profile-info">
+            <p><strong>Name:</strong> @ViewBag.Name</p>
+            <p><strong>Email:</strong> @ViewBag.Email</p>
+            <p><strong>Phone Number:</strong> @ViewBag.PhoneNumber</p>
+            <p><strong>Location:</strong> @ViewBag.Location</p>
+            <p><strong>Cab Type:</strong> <img src="~/images/@ViewBag.CabType.ToLower().Replace(' ', '_')_icon.png" alt="@ViewBag.CabType" /></p>
         </div>
     </div>
 
-</body>
-</html>
+    <!-- Past Bookings Section -->
+    <div class="booking-history">
+        <h3>Past Bookings</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Booking ID</th>
+                    <th>Pickup Location</th>
+                    <th>Drop Location</th>
+                    <th>Price</th>
+                    <th>Distance</th>
+                    <th>Booking Time</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var booking in Model)
+                {
+                    <tr>
+                        <td>@booking.BookingId</td>
+                        <td>@booking.PickupLocation</td>
+                        <td>@booking.DropLocation</td>
+                        <td>₹ @booking.Price</td>
+                        <td>@booking.Distance km</td>
+                        <td>@booking.BookingTime.ToString("g")</td>
+                        <td class="status @booking.Status.ToLower()">@booking.Status</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Enhanced Styles for the Driver Profile Page -->
+<style>
+    body {
+        font-family: 'Poppins', sans-serif;
+        background-color: #f0f2f5;
+        color: #333;
+        margin: 0;
+        padding: 20px;
+    }
+
+    .profile-container {
+        max-width: 900px;
+        margin: 20px auto;
+        background-color: #fff;
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .profile-header {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    .profile-header h2 {
+        font-size: 26px;
+        color: #4a4a4a;
+        font-weight: 600;
+        margin-bottom: 15px;
+    }
+
+    .profile-info {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
+        font-size: 16px;
+    }
+
+    .profile-info p {
+        margin: 5px 0;
+        color: #555;
+    }
+
+    .booking-history h3 {
+        font-size: 22px;
+        color: #333;
+        font-weight: 500;
+        margin-bottom: 15px;
+        border-bottom: 2px solid #ddd;
+        padding-bottom: 8px;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+
+    table th, table td {
+        padding: 15px;
+        border-bottom: 1px solid #ddd;
+        text-align: left;
+    }
+
+    table th {
+        background-color: #f5f5f5;
+        font-weight: 500;
+        color: #4a4a4a;
+    }
+
+    table tbody tr:hover {
+        background-color: #f9f9f9;
+    }
+
+    .status {
+        display: inline-block;
+        padding: 5px 12px;
+        border-radius: 4px;
+        text-align: center;
+        font-size: 14px;
+        font-weight: 500;
+    }
+
+    .status.completed {
+        background-color: #28a745;
+        color: #fff;
+    }
+
+    .status.pending {
+        background-color: #ffc107;
+        color: #fff;
+    }
+
+    .status.cancelled {
+        background-color: #dc3545;
+        color: #fff;
+    }
+
+    
+</style>

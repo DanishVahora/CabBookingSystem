@@ -111,9 +111,16 @@ public class DriverController : Controller
             return NotFound();
         }
 
+        // Fetch rejected booking IDs for this driver
+        var rejectedBookingIds = _context.RejectedBookings
+            .Where(rb => rb.DriverId == driverId)
+            .Select(rb => rb.BookingId)
+            .ToList();
+
         // Fetch current bookings where the CabId matches the driver's CabId and status is "pending"
+        // Exclude bookings that the driver rejected
         var currentBookings = _context.Bookings
-            .Where(b => b.CabId == driver.CabId && b.Status == "pending")
+            .Where(b => b.CabId == driver.CabId && b.Status == "pending" && !rejectedBookingIds.Contains(b.BookingId))
             .ToList();
 
         // Create the view model
@@ -125,6 +132,7 @@ public class DriverController : Controller
 
         return View(dashboardViewModel); // Pass the view model to the view
     }
+
 
     public IActionResult Profile()
     {
@@ -145,6 +153,11 @@ public class DriverController : Controller
             return NotFound(); // Return a 404 if the driver is not found
         }
 
+        // Fetch all bookings completed by the driver
+        var bookings = _context.Bookings
+            .Where(b => b.DriverId == driverId && b.Status == "Confirmed")
+            .ToList();
+
         var cab = _context.Cabs.Find(driver.CabId); // Now safe to access driver.CabId
 
         if (cab != null) // Check if cab is found
@@ -156,7 +169,12 @@ public class DriverController : Controller
             ViewBag.CabType = "Unknown"; // Or handle the case where the cab is not found
         }
 
-        return View(driver);
+        ViewBag.Name = driver.Name; // Pass the bookings to the view
+        ViewBag.Email = driver.Email;
+        ViewBag.PhoneNumber = driver.PhoneNumber;
+        ViewBag.Location = driver.Location;
+
+        return View(bookings);
     }
 
 
@@ -164,6 +182,7 @@ public class DriverController : Controller
 
 
 
+    [HttpPost]
     [HttpPost]
     public IActionResult UpdateBookingStatus(int bookingId, string status)
     {
@@ -185,14 +204,25 @@ public class DriverController : Controller
             }
             else if (status == "Rejected")
             {
-                // Logic for rejection (only remove for driver, not from booking table)
-                TempData[$"RejectedBooking_{bookingId}"] = true;  // Flag this booking as rejected for this driver
+                // Add an entry to RejectedBookings table for this driver
+                int? driverId = HttpContext.Session.GetInt32("Id");
+                if (driverId != null)
+                {
+                    var rejectedBooking = new RejectedBooking
+                    {
+                        DriverId = driverId.Value,
+                        BookingId = booking.BookingId
+                    };
+                    _context.RejectedBookings.Add(rejectedBooking);
+                    _context.SaveChanges();
+                }
             }
         }
 
         // Redirect back to the driver's dashboard after handling the status
         return RedirectToAction("Dashboard");
     }
+
 
 
 
@@ -293,6 +323,8 @@ public class DriverController : Controller
             TempData["OtpError"] = "Booking not found.";
             return RedirectToAction("Dashboard");
         }
+        booking.DriverId= driverId;
+        _context.SaveChanges(); 
 
         ViewBag.bId = bookingId;
 
