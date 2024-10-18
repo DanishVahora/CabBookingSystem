@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "DbifFB38huovOR3hKRDRLpRSx6cdgIamn9d85Q5eQ1Q=",
+  "Hash": "M04jE2falThQbbxmxOGUst3X0HPQICuXoiSas6VmURQ=",
   "Source": "CabBookingSystem",
   "BasePath": "_content/CabBookingSystem",
   "Mode": "Default",
@@ -1269,6 +1269,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\images\\alto_icon.jpeg"
+    },
+    {
+      "Identity": "C:\\Users\\danis\\CabBookingSystem\\wwwroot\\images\\back_image.webp",
+      "SourceId": "CabBookingSystem",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\danis\\CabBookingSystem\\wwwroot\\",
+      "BasePath": "_content/CabBookingSystem",
+      "RelativePath": "images/back_image.webp",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\back_image.webp"
     },
     {
       "Identity": "C:\\Users\\danis\\CabBookingSystem\\wwwroot\\images\\background.jpeg",

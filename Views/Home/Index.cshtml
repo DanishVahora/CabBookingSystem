@@ -185,6 +185,24 @@
 
 <script>
 
+
+    document.addEventListener('DOMContentLoaded', function () {
+        // Set the input to today's date and current time
+        var dateInput = document.getElementById('time');
+        var today = new Date();
+        var date = today.toISOString().slice(0, 10); // Format as yyyy-MM-dd
+        var time = today.toTimeString().slice(0, 5); // Format as HH:mm
+        dateInput.value = `${date}T${time}`;
+
+        // Add an event listener to prevent changing the date part
+        dateInput.addEventListener('input', function () {
+            // Only keep the date part fixed to today's date
+            var currentValue = dateInput.value;
+            var currentTime = currentValue.split('T')[1]; // Keep only the time part
+            dateInput.value = `${date}T${currentTime}`;
+        });
+    });
+
     function updatePersonCount(value) {
         document.getElementById('personCount').innerText = value;
     }
@@ -376,7 +394,7 @@
     function swapLocations() {
         var pickupLocation = document.getElementById('pickup').value;
         var dropLocation = document.getElementById('drop').value;
-        document.getElementById('pickup').value = dropLocation;
+        document.getElementById('pickup').value = dropLocation; 
         document.getElementById('drop').value = pickupLocation;
 
         var pickupLat = document.getElementById('pickupLat').value;

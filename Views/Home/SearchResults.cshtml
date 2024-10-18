@@ -1,31 +1,21 @@
 ﻿@model IEnumerable<CabBookingSystem.Models.Cab>
 
-    <!-- Main Container for the Page -->
-    <div class="search-results-container">
-        <!-- Left Section (Cab List) -->
-        <div class="cab-list">
-            <div class="justify-content-center">
-                <center><h1 style="color:#003d7a; border:dotted">Available Cabs</h1></center>
-                <div class="location-info">
-                    <center>
-                        <h3>Pickup Location : </h3>
-                        <p>@ViewBag.PickupLocation</p>
-                        <br />
-                        <h3>Drop Location : </h3>
-                        <p>@ViewBag.DropLocation</p>
-                        <br />
-                        <h3> Distance : </h3>
-                        <p>@ViewBag.Distance</p>
-                        <br />
-                        <h3> BookingTime : </h3>
-                        <p>@ViewBag.BookingTime</p>
-
-                    </center>
-                </div>
+<!-- Main Container for the Page -->
+<div class="search-results-container">
+    <!-- Left Section (Cab List) -->
+    <div class="cab-list">
+        <div class="header">
+            <h1>Available Cabs</h1>
+            <div class="location-info">
+                <h3>Pickup Location: <span>@ViewBag.PickupLocation</span></h3>
+                <h3>Drop Location: <span>@ViewBag.DropLocation</span></h3>
+                <h3>Distance: <span>@ViewBag.Distance</span></h3>
+                <h3>Booking Time: <span>@ViewBag.BookingTime</span></h3>
             </div>
+        </div>
 
-            <!-- Loop through each cab and display it as a card -->
-            @foreach (var cab in Model)
+        <!-- Loop through each cab and display it as a card -->
+        @foreach (var cab in Model)
         {
             <div class="cab-card">
                 <div class="cab-image">
@@ -33,14 +23,11 @@
                     <img src="~/images/@cab.CabType.ToLower().Replace(' ', '_')_icon.png" alt="@cab.CabType" />
                 </div>
 
-
                 <div class="cab-details">
                     <h4>@cab.CabType</h4>
-                    <p>Cab Number: @cab.CabNumber</p>
+                    <p>Cab Number: <span>@cab.CabNumber</span></p>
                     <p class="price">₹30 x Distance</p>
 
-
-                    <!---->
                     <form action="/Booking/Details" method="post" class="booking-form">
                         <input type="hidden" name="id" value="@cab.CabId" />
                         <input type="hidden" name="pickupLocation" value="@ViewBag.PickupLocation" />
@@ -55,158 +42,173 @@
 
                         <button type="submit" class="btn btn-primary">Book Now</button>
                     </form>
-                    <!---->
-
-
                 </div>
-
-
             </div>
         }
-        </div>
-
-        <!-- Right Section (Fixed Image Banner) -->
-        <div class="banner-section">
-            <img src="~/images/background.jpeg" alt="Ride out of town">
-            <p>Book and depart in an hour</p>
-        </div>
     </div>
 
-    <!-- Styles for the page -->
-    <style>
-        /* Background and Font */
-        body {
-            font-family: 'Poppins', sans-serif; /* Modern font for a cleaner look */
-            background: linear-gradient(to right, #f8f9fa, #e9ecef);
-            color: #333;
+    <!-- Right Section (Fixed Image Banner) -->
+    <div class="banner-section">
+        <img src="~/images/back_image.webp" alt="Ride out of town">
+        <p>Book and depart in an hour</p>
+    </div>
+</div>
+
+<!-- Styles for the page -->
+<style>
+    /* Background and Font */
+    body {
+        font-family: 'Poppins', sans-serif;
+        background: linear-gradient(135deg, #f0f4f8, #dfe7ec);
+        color: #333;
+    }
+
+    h1, h3 {
+        color: #2a5298;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+        font-size: 38px;
+        font-weight: bold;
+        margin-bottom: 20px;
+    }
+
+    h3 {
+        font-size: 18px;
+        margin-bottom: 10px;
+    }
+
+    span {
+        font-weight: 600;
+        color: #555;
+    }
+
+    /* Main Container */
+    .search-results-container {
+        display: flex;
+        justify-content: space-between;
+        padding: 30px;
+        margin-top: 60px;
+    }
+
+    .cab-list {
+        width: 65%;
+    }
+
+    .location-info {
+        margin-bottom: 30px;
+        background-color: #f7f9fc;
+        padding: 20px;
+        border-radius: 15px;
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    }
+
+        .location-info h3 {
+            font-weight: normal;
+            font-size: 17px;
+            color: #666;
         }
 
-        h2 {
-            font-size: 32px;
-            color: #333;
-            margin-bottom: 20px;
+    /* Cab Cards */
+    .cab-card {
+        display: flex;
+        border: 1px solid #dde5eb;
+        border-radius: 15px;
+        margin-bottom: 20px;
+        padding: 25px;
+        background-color: #fff;
+        box-shadow: 0 8px 18px rgba(0, 0, 0, 0.05);
+        transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    }
+
+        .cab-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.2);
         }
 
-        /* Main Container */
-        .search-results-container {
-            display: flex;
-            justify-content: space-between;
-            padding: 20px;
-            margin-top: 60px;
-        }
+    .cab-image {
+        width: 110px;
+        margin-right: 20px;
+    }
 
-        .cab-list {
-            width: 65%;
-        }
-
-        .location-info {
-            margin-bottom: 30px;
-            background-color: #f8f9fa;
-            padding: 10px;
+        .cab-image img {
+            width: 100%;
+            height: auto;
             border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            filter: brightness(0.95);
         }
 
-            .location-info p {
-                font-size: 18px;
-                color: #555;
-            }
+    .cab-details {
+        flex-grow: 1;
+    }
 
-        /* Cab Cards */
-        .cab-card {
-            display: flex;
-            border: 1px solid #ddd;
-            border-radius: 8px;
+        .cab-details h4 {
+            margin: 0;
+            font-size: 22px;
+            color: #2a5298;
+            font-weight: bold;
+        }
+
+        .cab-details p {
+            margin: 8px 0;
+            font-size: 16px;
+            color: #555;
+        }
+
+    .price {
+        font-weight: bold;
+        color: #28a745;
+        font-size: 18px;
+        text-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Button Styles */
+    .btn-primary {
+        display: inline-block;
+        background: linear-gradient(135deg, #0056b3, #007bff);
+        color: white;
+        padding: 10px 25px;
+        text-decoration: none;
+        border-radius: 30px;
+        box-shadow: 0 4px 10px rgba(0, 123, 255, 0.3);
+        transition: background 0.3s ease, box-shadow 0.3s ease;
+        font-weight: bold;
+    }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #003d7a, #0056b3);
+            box-shadow: 0 8px 15px rgba(0, 123, 255, 0.5);
+        }
+
+    /* Banner Section */
+    .banner-section {
+        width: 30%;
+        position: fixed;
+        right: 20px;
+        top: 100px;
+        text-align: center;
+        background: #fff;
+        padding: 25px;
+        border-radius: 15px;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    }
+
+        .banner-section img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 12px;
             margin-bottom: 15px;
-            padding: 20px;
-            background-color: #ffffff;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+            transition: transform 0.3s ease;
         }
 
-            .cab-card:hover {
-                transform: scale(1.02);
-                box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+            .banner-section img:hover {
+                transform: scale(1.05);
             }
 
-        .cab-image {
-            width: 120px;
-            margin-right: 20px;
+        .banner-section p {
+            font-size: 19px;
+            color: #444;
+            font-weight: 500;
         }
-
-            .cab-image img {
-                width: 100%;
-                height: auto;
-                border-radius: 10px;
-            }
-
-        .cab-details {
-            flex-grow: 1;
-        }
-
-            .cab-details h4 {
-                margin: 0;
-                font-size: 22px;
-                color: #333;
-                font-weight: bold;
-            }
-
-            .cab-details p {
-                margin: 5px 0;
-                color: #777;
-            }
-
-            .cab-details .price {
-                font-weight: bold;
-                color: #4caf50;
-                margin-top: 10px;
-            }
-
-        /* Button Styles */
-        .btn-primary {
-            display: inline-block;
-            margin-top: 10px;
-            background: linear-gradient(135deg, #007bff, #0056b3);
-            color: white;
-            padding: 10px 15px;
-            text-decoration: none;
-            border-radius: 30px;
-            box-shadow: 0 3px 8px rgba(0, 123, 255, 0.4);
-            transition: background 0.3s ease, box-shadow 0.3s ease;
-        }
-
-            .btn-primary:hover {
-                background: linear-gradient(135deg, #0056b3, #003d7a);
-                box-shadow: 0 6px 12px rgba(0, 123, 255, 0.6);
-            }
-
-        /* Banner Section */
-        .banner-section {
-            width: 30%;
-            position: fixed;
-            right: 0;
-            top: 80px;
-            text-align: center;
-            background: rgba(255, 255, 255, 0.8);
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-        }
-
-            .banner-section img {
-                max-width: 100%;
-                height: auto;
-                border-radius: 8px;
-                margin-bottom: 15px;
-            }
-
-            .banner-section p {
-                font-size: 20px;
-                color: #555;
-            }
-
-        /* Scroll Smooth */
-        html {
-            scroll-behavior: smooth;
-        }
-    </style>
+</style>

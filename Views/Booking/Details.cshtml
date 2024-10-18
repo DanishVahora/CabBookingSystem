@@ -1,4 +1,8 @@
-﻿@model CabBookingSystem.Models.Cab
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml"; // Optional if you use a shared layout
+}
+
+@model CabBookingSystem.Models.Cab
 
 <!-- Main Container for Booking Confirmation -->
 <div class="confirmation-container">
@@ -6,7 +10,7 @@
     <div class="cab-info-card">
         <div class="cab-image">
             <!-- Placeholder image for the cab type based on the model -->
-            <img src="~/images/@Model.CabType.ToLower().Replace(' ', '_')_icon.png" alt="@Model.CabType" />cd ..
+            <img src="~/images/@Model.CabType.ToLower().Replace(' ', '_')_icon.png" alt="@Model.CabType" />
         </div>
         <div class="cab-details">
             <h2>Confirm Your Booking</h2>
@@ -25,7 +29,6 @@
         <input type="hidden" name="NumberOfPass" value="@ViewBag.NumberOfPass" />
         <input type="hidden" name="BookingTime" value="@ViewBag.BookingTime" />
         <input type="hidden" name="TotalPersons" value="@ViewBag.TotalPersons" />
-
         <input type="hidden" name="pickupLat" value="@ViewBag.PickupLat" />
         <input type="hidden" name="pickupLng" value="@ViewBag.PickupLng" />
         <input type="hidden" name="dropLat" value="@ViewBag.DropLat" />
@@ -40,7 +43,6 @@
 
         <details class="invoice">
             <summary><strong> Invoice </strong></summary>
-
             <p><strong>Total Persons:</strong> @ViewBag.TotalPersons</p>
             <div class="final-amount">
                 <h4>Advance booking fee: <span>₹ 50</span></h4>
@@ -60,24 +62,33 @@
     body {
         font-family: 'Poppins', sans-serif;
         background-color: #f7f8fa;
+        background-image: url('~/images/background-pattern.png'); /* Optional background image */
+        background-size: cover;
         color: #333;
         margin: 0;
-        padding: 40px 0;
+        padding: 0;
     }
 
     .confirmation-container {
         max-width: 600px;
         margin: 0 auto;
-        background-color: #ffffff;
         padding: 30px;
+        padding-top: 120px; /* Adjust this value based on your navbar height */
         border-radius: 15px;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent white */
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(10px); /* Optional blur effect for background */
     }
 
     .cab-info-card {
         display: flex;
         align-items: center;
         margin-bottom: 20px;
+        padding: 15px;
+        border: 1px solid #e0e0e0;
+        border-radius: 10px;
+        background-color: #f9f9f9; /* Light background for the card */
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     }
 
     .cab-image {
@@ -105,6 +116,7 @@
     .location-info p {
         font-size: 16px;
         color: #666;
+        margin: 5px 0;
     }
 
     .invoice summary {
@@ -133,7 +145,7 @@
         border-radius: 30px;
         font-size: 16px;
         cursor: pointer;
-        transition: background-color 0.3s ease;
+        transition: background-color 0.3s ease, transform 0.3s ease;
         box-shadow: 0 3px 10px rgba(0, 123, 255, 0.3);
         width: 100%;
         margin-top: 20px;
@@ -142,8 +154,9 @@
 
     .btn-primary:hover {
         background-color: #0056b3;
+        transform: scale(1.05); /* Slight scaling effect on hover */
     }
 
-    /* For mobile responsiveness */
+    /* Responsive Design */
    
 </style>

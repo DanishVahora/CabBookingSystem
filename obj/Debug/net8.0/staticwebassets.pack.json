@@ -37,6 +37,10 @@
       "PackagePath": "staticwebassets\\images\\alto_icon.jpeg"
     },
     {
+      "Id": "C:\\Users\\danis\\CabBookingSystem\\wwwroot\\images\\back_image.webp",
+      "PackagePath": "staticwebassets\\images\\back_image.webp"
+    },
+    {
       "Id": "C:\\Users\\danis\\CabBookingSystem\\wwwroot\\images\\background.jpeg",
       "PackagePath": "staticwebassets\\images\\background.jpeg"
     },
