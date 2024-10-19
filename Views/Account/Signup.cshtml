@@ -4,11 +4,11 @@
 <!-- Stylish Signup Form -->
 <div class="signup-container">
     @if (TempData["userExist"] != null)
-{
-    <div class="alert alert-warning">
-        @TempData["userExist"]
-    </div>
-}
+    {
+        <div class="alert alert-warning">
+            @TempData["userExist"]
+        </div>
+    }
     <div class="signup-card">
         <h2>Signup</h2>
         <form asp-controller="Account" asp-action="Signup" method="post">
@@ -88,6 +88,7 @@
             background-color: #0056b3;
             box-shadow: 0 6px 12px rgba(0, 123, 255, 0.6);
         }
+
     .signup-container {
         display: flex;
         justify-content: center;
@@ -95,6 +96,7 @@
         min-height: 80vh;
         background: #f8f9fa;
     }
+
     .alert {
         padding: 10px;
         border-radius: 8px;

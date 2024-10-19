@@ -50,7 +50,7 @@ public class DriverController : Controller
 
     // POST: Signup
     [HttpPost]
-    public IActionResult Signup(string driverName, string location, string email, string password, string confirmPassword, int cabType)
+    public IActionResult Signup(string driverName, string location, string email, string phone, string password, string confirmPassword, int cabType)
     {
         // Check if a driver with the same email already exists
         var existingDriver = _context.Drivers.SingleOrDefault(d => d.Email == email);
@@ -73,9 +73,9 @@ public class DriverController : Controller
             Name = driverName,
             Email = email,
             Location = location,
-            Password = password, // Consider hashing the password
+            Password = password, 
             CabId = cabType,
-            PhoneNumber = 21144 // Replace with actual phone number logic if needed
+            PhoneNumber = phone 
         };
 
         // Add the new driver to the database

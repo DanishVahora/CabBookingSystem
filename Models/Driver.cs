@@ -19,12 +19,12 @@ namespace CabBookingSystem.Models
         public string Password { get; set; }
 
         public int CabId { get; set; }
-        public Cab? Cab { get; set; }  // Assuming a Cab relation, made nullable
+        public Cab? Cab { get; set; }  
 
         public bool IsAvailable { get; set; }
 
         [Required]
-        public int PhoneNumber { get; set; }  // Changed to string
+        public string PhoneNumber { get; set; }  
 
         [Required]
         public string Location { get; set; }
