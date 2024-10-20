@@ -21,8 +21,8 @@ The **Cab Booking System** is a web-based application built using **ASP.NET Core
 - **Backend**: ASP.NET Core MVC
 - **Database**: SQL Server (Entity Framework Core for database interaction)
 - **ORM**: Entity Framework Core
-- **IDE**: Visual Studio
-- **API Integration**: Google Maps API for location services
+- **IDE**: Microsoft Visual Studio 
+- **API Integration**: Leaflet JS API for location services
 
 ## Database Structure
 
@@ -41,7 +41,6 @@ Before you start, make sure you have the following installed:
 - .NET 6 SDK or newer
 - SQL Server
 - Visual Studio (Community or Professional)
-- Postman (for API testing, optional)
 
 ## Getting Started
 
@@ -50,5 +49,57 @@ Follow these instructions to get a copy of the project up and running on your lo
 ### Clone the Repository
 
 ```bash
-git clone https://github.com/your-username/cab-booking-system.git
-cd cab-booking-system
+git clone https://github.com/DanishVahora/CabBookingSystem.git
+cd CabBookingSystem
+```
+
+### Setup the Database
+
+- Open SQL Server Management Studio (SSMS).
+- Create a new database called CabBookingSystem.
+- Update the connection string in appsettings.json to match your SQL Server instance:
+
+```bash
+"ConnectionStrings": {
+  "DefaultConnection": "Server=YOUR_SERVER;Database=CabBookingSystem;Trusted_Connection=True;MultipleActiveResultSets=true"
+}
+```
+
+- Open the terminal in Visual Studio and run the following command to apply the migrations:
+
+```bash
+dotnet ef database update
+```
+
+### Running the Application
+
+- Run following command in terminal:
+
+```bash
+dotnet run
+```
+- It will run on [http://localhost:5026](http://localhost:5026)
+
+
+## Usage
+
+### For Users:
+1. Register and log in.
+2. Book a cab by entering your pickup and drop locations.
+3. View the status of your bookings and check your booking history.
+
+### For Drivers:
+1. Register and log in.
+2. View booking requests from users.
+3. Accept or reject a booking.
+4. Navigate to the pickup location once a booking is accepted.
+
+
+## Future Improvements
+
+- Payment Integration: Add online payment functionality.
+- Notifications: Real-time notifications for drivers and users.
+- Driver Ratings: Users can rate drivers after completing a ride.
+- Admin Panel: An admin interface for managing users, drivers, and bookings.
+
+
