@@ -1,82 +1,54 @@
-# Advanced Cab Booking System
+# Cab Booking System
 
-## Overview
+## Project Overview
 
-<<<<<<< HEAD
-The **Advanced Cab Booking System** is a C# application that allows users to book cabs, rate drivers, and leave reviews. It includes features such as booking history, fare calculations, and driver ratings. The system is designed to provide an efficient and user-friendly experience for both passengers and drivers.
-
-## Features
-
-- **User Management**: Users can register, login, and manage their bookings and reviews.
-- **Cab Management**: View available cabs and book rides based on cab type.
-- **Driver Management**: Drivers can be rated and their details can be managed.
-- **Booking System**: Users can create bookings, view details, and make payments.
-- **Review System**: Users can leave reviews and ratings for drivers.
-
-## Technologies Used
-
-- C#
-- .NET Core
-- Entity Framework (for database operations)
-- Console Application (for user interaction)
-=======
-The **Advanced Cab Booking System** is a C# application designed to facilitate the booking of cabs for users while allowing drivers to manage their rides effectively. This console-based application offers a user-friendly interface for both passengers and drivers, featuring functionalities such as user authentication, booking management, driver ratings, and fare calculations.
+The **Cab Booking System** is a web-based application built using **ASP.NET Core MVC** and **Entity Framework Core**. This system allows users to book cabs by providing their pickup and drop locations, and drivers can accept or reject the bookings. The application provides an easy-to-use interface for both users and drivers to interact with the system.
 
 ## Features
 
-- **User Management**: 
-  - User registration and login
-  - Manage user profiles and booking history
-  
-- **Cab Management**: 
-  - View available cabs
-  - Book rides based on cab type and availability
-  
-- **Driver Management**: 
-  - Rate drivers and provide feedback
-  - Manage driver profiles
+- **User Registration & Authentication**: Users can sign up, log in, and manage their profile.
+- **Driver Registration & Authentication**: Drivers can register, log in, and manage their profile.
+- **Cab Booking**: Users can book cabs by providing pickup and drop locations.
+- **Driver Assignment**: Drivers can accept or reject cab bookings.
+- **Booking History**: Users can view their past bookings.
+- **Real-Time Location**: Displays driver’s current location.
+- **Booking Status Management**: Manage booking status as pending, completed, or canceled.
+- **Responsive Design**: The application is responsive and works on various screen sizes.
 
-- **Booking System**: 
-  - Create, view, and cancel bookings
-  - Calculate fares based on distance and cab type
-  
-- **Review System**: 
-  - Users can leave reviews and ratings for drivers
-  - View reviews of drivers by other users
+## Tech Stack
 
-## Technologies Used
+- **Frontend**: Razor Pages, HTML, CSS, Bootstrap
+- **Backend**: ASP.NET Core MVC
+- **Database**: SQL Server (Entity Framework Core for database interaction)
+- **ORM**: Entity Framework Core
+- **IDE**: Visual Studio
+- **API Integration**: Google Maps API for location services
 
-- **C#**: Programming language used for developing the application
-- **.NET Core**: Framework for building and running the application
-- **Entity Framework**: ORM for database operations
-- **SQL Server**: Database for storing user, driver, and booking information
->>>>>>> bf24c23527604889093a9793cc97c095af16b2cf
+## Database Structure
 
-## Installation
+Here’s a brief overview of the main database tables:
 
-To set up the project locally, follow these steps:
+1. **Users**: Stores user data such as name, email, password hash, and phone number.
+2. **Cabs**: Stores information about cabs including cab number and type.
+3. **Drivers**: Stores driver information such as name, email, password, phone number, and assigned cab.
+4. **Bookings**: Stores booking details including user ID, cab ID, pickup and drop locations, distance, price, and booking time.
+5. **RejectedBookings**: Tracks bookings that were rejected by drivers.
 
-1. **Clone the repository**:
-   ```bash
-   git clone https://github.com/your-username/AdvancedCabBookingSystem.git
-<<<<<<< HEAD
-=======
+## Prerequisites
 
+Before you start, make sure you have the following installed:
 
+- .NET 6 SDK or newer
+- SQL Server
+- Visual Studio (Community or Professional)
+- Postman (for API testing, optional)
 
-2. **Navigate to the project directory**:
- 
-      - cd AdvancedCabBookingSystem
+## Getting Started
 
-3. **Restore dependencies**:
+Follow these instructions to get a copy of the project up and running on your local machine.
 
-      - dotnet restore
+### Clone the Repository
 
-4. **Build the project**:
-
-      - dotnet build
-  
-5. **Run the application**:
-
-      - dotnet run
->>>>>>> bf24c23527604889093a9793cc97c095af16b2cf
+```bash
+git clone https://github.com/your-username/cab-booking-system.git
+cd cab-booking-system
