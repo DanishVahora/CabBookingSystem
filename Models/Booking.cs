@@ -26,11 +26,10 @@ namespace CabBookingSystem.Models
 
         public User User { get; set; }
 
-        // Adding latitude and longitude for Pickup and Drop locations
-        public double PickupLatitude { get; set; } // Latitude for Pickup Location
-        public double PickupLongitude { get; set; } // Longitude for Pickup Location
-        public double DropLatitude { get; set; } // Latitude for Drop Location
-        public double DropLongitude { get; set; } // Longitude for Drop Location
+        public double PickupLatitude { get; set; } 
+        public double PickupLongitude { get; set; } 
+        public double DropLatitude { get; set; } 
+        public double DropLongitude { get; set; }
 
         public int? Otp { get; set; }
         public int? DriverId { get; set; }
