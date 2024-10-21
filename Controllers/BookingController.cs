@@ -73,7 +73,7 @@ namespace CabBookingSystem.Controllers
 
 
         [HttpPost]
-        public IActionResult ConfirmBooking(int cabId, string pickupLocation, string dropLocation, DateTime bookingTime, double distance, int numberOfPass, int price, double pickupLat, double pickupLng, double dropLat, double dropLng)
+        public IActionResult ConfirmBooking(int cabId, string pickupLocation, string dropLocation, DateTime bookingTime, double distance, int TotalPersons, int price, double pickupLat, double pickupLng, double dropLat, double dropLng)
         {
             if (HttpContext.Session.GetInt32("UserId") == null)
             {
@@ -96,7 +96,7 @@ namespace CabBookingSystem.Controllers
                 BookingTime = bookingTime,
                 Distance = distance,
                 Price = price,
-                NumberOfPass = numberOfPass,
+                NumberOfPass = TotalPersons,
                 Status = "pending", // Status is set to pending initially
                 PickupLatitude = pickupLat,
                 PickupLongitude = pickupLng,

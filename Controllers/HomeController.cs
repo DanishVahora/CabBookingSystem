@@ -32,7 +32,6 @@ namespace CabBookingSystem.Controllers
 
             var availableCabs = _context.Cabs.ToList();
 
-            // You can modify this to filter the cabs based on user input, for now return all
             ViewBag.PickupLocation = PickupLocation;
             ViewBag.DropLocation = DropLocation;
             ViewBag.Distance = Distance;

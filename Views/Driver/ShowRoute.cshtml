@@ -45,7 +45,7 @@
             <form method="post" action="/Driver/VerifyOtp">
                 <div class="mb-3">
                     <label for="otpInput" class="form-label">Enter OTP to Confirm:</label>
-                    <input type="number" class="form-control" id="otpInput" name="otp" placeholder="Enter 4-digit OTP" required />
+                    <input type="number" class="form-control" id="otpInput" name="otp" placeholder="Enter 6-digit OTP" required />
                 </div>
                 <input type="hidden" name="bookingId" value="@ViewBag.bId" /> <!-- Hidden input for BookingId -->
                 <button type="submit" class="btn btn-primary">Verify OTP</button>
