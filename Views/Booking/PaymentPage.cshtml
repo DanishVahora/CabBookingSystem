@@ -1,0 +1,80 @@
+﻿@using Microsoft.Extensions.Configuration
+@{
+    var razorpayKey = ViewBag.RazorpayKey;
+    var amount = ViewBag.Amount;
+    var orderId = ViewBag.OrderId;
+    var bookingId = ViewBag.BookingId;
+    var pickupLocation = ViewBag.PickupLocation;
+    var dropLocation = ViewBag.DropLocation;
+    var bookingTime = ViewBag.BookingTime;
+    var distance = ViewBag.Distance;
+    var price = ViewBag.Price;
+    var totalPersons = ViewBag.TotalPersons;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirm Your Booking</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+    <div class="container my-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card shadow-sm">
+                    <div class="card-header text-center bg-primary text-white">
+                        <h4>Confirm Your Booking</h4>
+                        <p class="mb-0">Complete your payment to confirm the cab booking</p>
+                    </div>
+                    <div class="card-body">
+                        <!-- Booking Details -->
+                        <h5 class="card-title">Booking Details</h5>
+                        <ul class="list-group mb-3">
+                            <li class="list-group-item">
+                                <strong>Pickup Location:</strong> @pickupLocation
+                            </li>
+                            <li class="list-group-item">
+                                <strong>Drop Location:</strong> @dropLocation
+                            </li>
+                            <li class="list-group-item">
+                                <strong>Booking Time:</strong> @bookingTime
+                            </li>
+                            <li class="list-group-item">
+                                <strong>Distance:</strong> @distance km
+                            </li>
+                            <li class="list-group-item">
+                                <strong>Total Persons:</strong> @totalPersons
+                            </li>
+                            <li class="list-group-item">
+                                <strong>Price:</strong> ₹ @price
+                            </li>
+                        </ul>
+
+                        <!-- Payment Button -->
+                        <form action="/Booking/PaymentSuccess" method="POST">
+                            <script src="https://checkout.razorpay.com/v1/checkout.js"
+                                    data-key="@razorpayKey"
+                                    data-amount="@amount"
+                                    data-currency="INR"
+                                    data-order_id="@orderId"
+                                    data-buttontext="Pay ₹ @price Now"
+                                    data-name="CabBookingSystem"
+                                    data-description="Confirm your cab booking"
+                                    data-prefill.name="Customer Name"
+                                    data-theme.color="#528FF0">
+                            </script>
+                            <input type="hidden" name="bookingId" value="@bookingId" />
+                        </form>
+                    </div>
+                    <div class="card-footer text-center">
+                        <small class="text-muted">You will be redirected to the payment gateway for secure payment</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

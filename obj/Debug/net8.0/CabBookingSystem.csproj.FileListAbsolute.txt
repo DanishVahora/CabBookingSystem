@@ -58,7 +58,6 @@ C:\Users\danis\CabBookingSystem\bin\Debug\net8.0\System.Memory.Data.dll
 C:\Users\danis\CabBookingSystem\bin\Debug\net8.0\System.Runtime.Caching.dll
 C:\Users\danis\CabBookingSystem\bin\Debug\net8.0\System.Security.Cryptography.ProtectedData.dll
 C:\Users\danis\CabBookingSystem\bin\Debug\net8.0\System.Security.Permissions.dll
-C:\Users\danis\CabBookingSystem\bin\Debug\net8.0\System.Text.Json.dll
 C:\Users\danis\CabBookingSystem\bin\Debug\net8.0\System.Windows.Extensions.dll
 C:\Users\danis\CabBookingSystem\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.resources.dll
 C:\Users\danis\CabBookingSystem\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.resources.dll
@@ -152,3 +151,10 @@ C:\Users\danis\CabBookingSystem\obj\Debug\net8.0\ref\CabBookingSystem.dll
 C:\Users\danis\CabBookingSystem\obj\Debug\net8.0\CabBookingSystem.sourcelink.json
 C:\Users\danis\CabBookingSystem\bin\Debug\net8.0\Newtonsoft.Json.dll
 C:\Users\danis\CabBookingSystem\bin\Debug\net8.0\System.Net.WebSockets.WebSocketProtocol.dll
+C:\Users\danis\CabBookingSystem\bin\Debug\net8.0\BouncyCastle.Crypto.dll
+C:\Users\danis\CabBookingSystem\bin\Debug\net8.0\Razorpay.dll
+C:\Users\danis\CabBookingSystem\bin\Debug\net8.0\Microsoft.Extensions.Caching.Memory.dll
+C:\Users\danis\CabBookingSystem\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.dll
+C:\Users\danis\CabBookingSystem\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\Users\danis\CabBookingSystem\bin\Debug\net8.0\Microsoft.Extensions.Logging.dll
+C:\Users\danis\CabBookingSystem\bin\Debug\net8.0\Microsoft.Extensions.Logging.Abstractions.dll

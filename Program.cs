@@ -24,6 +24,8 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options =>
     options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<ApplicationDbContext>();
 
+builder.Services.Configure<RazorpayConfig>(builder.Configuration.GetSection("Razorpay"));
+
 
 var app = builder.Build();
 
